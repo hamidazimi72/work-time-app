@@ -1,0 +1,57 @@
+// ____________________________________________ VARIABLE'S ____________________________________________ //
+.container {
+	--color-background-container: #888;
+	--color-background-icon: #fff;
+}
+
+// ____________________________________________ THEME'S ____________________________________________ //
+body[data-='light'] .container {
+	--color-background-container: #8e89a3;
+	--color-background-icon: #fff;
+}
+
+// ____________________________________________ LANGUAGE'S ____________________________________________ //
+// body:not([_language='fa']) .container {    }
+
+// ____________________________________________ STYLE'S ____________________________________________ //
+.container {
+	display: inline-flex;
+	align-items: center;
+	font-size: 12px;
+	gap: 8px;
+
+	.toggleButton {
+		position: relative;
+		width: 60px;
+		height: 25px;
+		border-radius: 20px;
+		background-color: var(--color-background-container);
+		cursor: pointer;
+		user-select: none;
+
+		.icon {
+			position: absolute;
+			left: 0px;
+			width: 25px;
+			height: 25px;
+			background-color: var(--color-background-icon);
+			border-radius: 50%;
+			box-shadow: 0 0 3px gray;
+			transition: all 0.3s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&[data-theme='dark'] .icon {
+			right: 0;
+			left: unset;
+		}
+	}
+}
+
+// ______________________________________ MEDIA SCREEN'S (MOBILE FIRST) _______________________________________ //
+// @screen sm { .container {  } }
+// @screen md { .container {  } }
+// @screen lg { .container {  } }
+// @screen xl { .container {  } }

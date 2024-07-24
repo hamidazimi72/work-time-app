@@ -1,0 +1,62 @@
+.app-wrapper {
+	max-width: 1920px;
+	margin: 0 0 0 auto;
+}
+
+// _____________* gradient primary *_____________//
+.gradient-bg-primary {
+	background: linear-gradient(242.37deg, var(--color-primary-1) 39.07%, var(--color-primary-1) 75.9%);
+}
+
+.gradient-text-primary {
+	color: transparent;
+	background-clip: text;
+	background-image: linear-gradient(242.37deg, var(--color-primary-1) 39.07%, var(--color-primary-1) 75.9%);
+}
+
+.gradient-border-primary {
+	border-image: linear-gradient(242.37deg, var(--color-primary-1), var(--color-primary-1)) 1;
+}
+
+// _____________* gradient secondary *_____________//
+.gradient-bg-secondary {
+	background: linear-gradient(242.37deg, var(--color-secondary-1) 39.07%, var(--color-secondary-1) 75.9%);
+}
+
+.gradient-text-secondary {
+	color: transparent;
+	background-clip: text;
+	background-image: linear-gradient(242.37deg, var(--color-secondary-1) 39.07%, var(--color-secondary-1) 75.9%);
+}
+
+.gradient-border-secondary {
+	border-image: linear-gradient(242.37deg, var(--color-secondary-1), var(--color-secondary-1)) 1;
+}
+
+@screen sm {
+	.sm-parent-hover {
+		&:hover {
+			.sm-child-inline-flex {
+				display: inline-flex;
+			}
+			.sm-child-hidden {
+				display: none;
+			}
+		}
+	}
+}
+
+//
+
+.scrollbar-hidden {
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	& {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+}

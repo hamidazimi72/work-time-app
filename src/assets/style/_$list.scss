@@ -1,0 +1,41 @@
+// ______________________________ colors list ______________________________ //
+$color-list: (
+	// _____________________* basic main colors *_____________________ //
+	'primary-1': var(--color-primary-1),
+	'primary-2': var(--color-primary-2),
+	'secondary-1': var(--color-secondary-1),
+	'tertiary-1': var(--color-tertiary-1),
+	// _____________________* custom main colors *_____________________ //
+	'success': var(--color-success),
+	'danger': var(--color-danger),
+	'warning': var(--color-warning),
+	'info': var(--color-info),
+	'cancel': var(--color-cancel),
+	// _____________________* text & bg colors *_____________________ //
+	'background-primary': var(--color-background-primary),
+	'background-secondary': var(--color-background-secondary),
+	'background-tertiary': var(--color-background-tertiary),
+	'text-primary': var(--color-text-primary),
+	'text-secondary': var(--color-text-secondary),
+	'text-tertiary': var(--color-text-tertiary)
+);
+
+$color-list-rgb: (
+	// _____________________* basic main colors *_____________________ //
+	'primary-1': var(--color-primary-1-rgb),
+	'secondary-1': var(--color-secondary-1-rgb),
+	'tertiary-1': var(--color-tertiary-1-rgb),
+	// _____________________* custom main colors *_____________________ //
+	'success': var(--color-success-rgb),
+	'danger': var(--color-danger-rgb),
+	'warning': var(--color-warning-rgb),
+	'info': var(--color-info-rgb),
+	'cancel': var(--color-cancel-rgb),
+	// _____________________* text & bg colors *_____________________ //
+	'background-primary': var(--color-background-primary-rgb),
+	'background-secondary': var(--color-background-secondary-rgb),
+	'background-tertiary': var(--color-background-tertiary-rgb),
+	'text-primary': var(--color-text-primary-rgb),
+	'text-secondary': var(--color-text-secondary-rgb),
+	'text-tertiary': var(--color-text-tertiary-rgb)
+);

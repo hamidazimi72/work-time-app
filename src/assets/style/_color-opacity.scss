@@ -1,0 +1,19 @@
+@import './$list';
+
+@each $name, $value in $color-list-rgb {
+	@for $i from 1 through 9 {
+		.bg-#{$name}-#{$i}0 {
+			background-color: rgba($value, calc(#{$i} / 10));
+		}
+		.text-#{$name}-#{$i}0 {
+			color: rgba($value, calc(#{$i} / 10));
+		}
+		.border-#{$name}-#{$i}0 {
+			border-color: rgba($value, calc(#{$i} / 10));
+		}
+		.placeholder-#{$name}-#{$i}0 {
+			--tw-placeholder-opacity: 1;
+			color: rgba($value, calc(#{$i} / 10));
+		}
+	}
+}

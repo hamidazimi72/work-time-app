@@ -1,0 +1,10 @@
+
+[&_div]:classname 
+[&_div:last-child]:classname
+[&>div~*]:classname
+[&>div+div]:className
+
+
+data-[attribute=value]:classname
+[&:has([attribute=value])]:classname
+[&[attribute=value]>div]:className

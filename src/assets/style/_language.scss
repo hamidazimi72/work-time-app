@@ -1,0 +1,45 @@
+body {
+	direction: rtl;
+	text-align: right;
+
+	&[_language='en'] {
+		direction: ltr;
+		text-align: left;
+	}
+
+	&:not([_language='fa']) {
+		[_languagemode='fa'] {
+			display: none !important;
+		}
+	}
+
+	&:not([_language='en']) {
+		[_languagemode='en'] {
+			display: none !important;
+		}
+	}
+
+	.children-rtl {
+		direction: rtl;
+	}
+
+	&:not([_language='fa']) .children-rtl > * {
+		direction: ltr;
+	}
+
+	.children-ltr {
+		direction: ltr;
+	}
+
+	&[_language='fa'] .children-ltr > * {
+		direction: rtl;
+	}
+
+	.dir-ltr {
+		direction: ltr;
+	}
+
+	.dir-rtl {
+		direction: rtl;
+	}
+}

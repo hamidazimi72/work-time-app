@@ -1,0 +1,48 @@
+{
+	"name": "template",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"start": "next start",
+		"build": "next build",
+		"export": "next export",
+		"serve": "serve out",
+		"deploy": "npm run build && npm run sw:build && npm run serve",
+		"i-legacy": "npm i --legacy-peer-deps",
+		"lint": "next lint",
+		"pretty": "prettier --write \"./*/.{js,jsx,ts,tsx}\"",
+		"git-clear-cache": "git rm --cached . -r",
+		"sw:build": "esbuild --target=ESNext --outfile=service-worker/sw.js --bundle service-worker/sw.ts && workbox injectManifest service-worker/config.js"
+	},
+	"dependencies": {
+		"axios": "^1.6.8",
+		"jalali-moment": "^3.3.11",
+		"next": "^14.2.1",
+		"nprogress": "^0.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-dropzone": "^14.2.3",
+		"react-multi-date-picker": "^4.5.2",
+		"react-toastify": "^10.0.5",
+		"sass": "^1.75.0",
+		"uuid": "^10.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.12.7",
+		"@types/react": "^18.2.77",
+		"@types/uuid": "^10.0.0",
+		"autoprefixer": "^10.4.19",
+		"esbuild": "^0.20.2",
+		"eslint": "^9.0.0",
+		"postcss": "^8.4.38",
+		"prettier": "^3.2.5",
+		"serve": "^14.2.1",
+		"tailwindcss": "^3.4.3",
+		"typescript": "^5.4.5",
+		"workbox-cli": "^7.0.0",
+		"workbox-precaching": "^7.0.0",
+		"workbox-routing": "^7.0.0",
+		"workbox-strategies": "^7.0.0"
+	},
+	"author": "Mahmoodi"
+}

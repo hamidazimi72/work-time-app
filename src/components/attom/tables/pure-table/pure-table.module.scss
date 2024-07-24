@@ -1,0 +1,66 @@
+// ____________________________________________ VARIABLE'S ____________________________________________ //
+// .container {   }
+
+// ____________________________________________ THEME'S ____________________________________________ //
+// body[_theme='light'] .container {   }
+
+// ____________________________________________ LANGUAGE'S ____________________________________________ //
+// body:not([_language='fa']) .container {    }
+
+// ____________________________________________ STYLES ____________________________________________ //
+.container {
+	font-size: 14px;
+
+	// row = th & tr
+	& > *:nth-child(1),
+	& > *:nth-child(2) > * {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+
+		// col = td
+		& > * {
+			justify-content: center;
+			text-align: center;
+
+			width: 100%;
+
+			&[data-grow='0.25'] {
+				width: 25%;
+			}
+			&[data-grow='0.5'] {
+				width: 50%;
+			}
+			&[data-grow='0.75'] {
+				width: 75%;
+			}
+			&[data-grow='1'] {
+				width: 100%;
+			}
+			&[data-grow='1.5'] {
+				width: 150%;
+			}
+			&[data-grow='2'] {
+				width: 200%;
+			}
+			&[data-grow='3'] {
+				width: 300%;
+			}
+			&[data-grow='4'] {
+				width: 400%;
+			}
+			&[data-grow='5'] {
+				width: 500%;
+			}
+			&[data-grow='6'] {
+				width: 600%;
+			}
+		}
+	}
+}
+
+// ______________________________________ MEDIA SCREEN'S (MOBILE FIRST) _______________________________________ //
+// @screen sm { .container {  } }
+// @screen md { .container {  } }
+// @screen lg { .container {  } }
+// @screen xl { .container {  } }

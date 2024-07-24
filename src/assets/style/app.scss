@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@import './$animation';
+@import './$color';
+@import './$vars';
+@import './color-opacity';
+@import './css-reset';
+@import './font-face';
+@import './general';
+@import './language';

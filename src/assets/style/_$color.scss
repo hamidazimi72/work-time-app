@@ -1,0 +1,65 @@
+body {
+	// _____________________* basic main colors *_____________________ //
+	--color-primary-1: #3d8bff;
+	--color-primary-1-rgb: 61, 139, 255;
+
+	--color-primary-2: #1975ff;
+	--color-primary-1-rgb: 25, 117, 255;
+
+	--color-secondary-1: #f7931a;
+	--color-secondary-1-rgb: 247, 147, 26;
+
+	--color-tertiary-1: #29df7e;
+	--color-tertiary-1-rgb: 41, 223, 126;
+
+	// _____________________* custom main colors *_____________________ //
+	--color-success: #17b26a;
+	--color-success-rgb: 23, 178, 106;
+
+	--color-danger: #f04438;
+	--color-danger-rgb: 240, 68, 56;
+
+	--color-warning: #ffc107;
+	--color-warning-rgb: 255, 193, 7;
+
+	--color-info: #0dcaf0;
+	--color-info-rgb: 13, 202, 240;
+
+	--color-cancel: #667085;
+	--color-cancel-rgb: 102, 112, 133;
+
+	// _____________________* text & bg colors *_____________________ //
+	--color-background-primary: #ffffff;
+	--color-background-primary-rgb: 255, 255, 255;
+
+	--color-background-secondary: #f9fafb;
+	--color-background-secondary-rgb: 249, 250, 251;
+
+	--color-background-tertiary: #f2f5f7;
+	--color-background-tertiary-rgb: 242, 245, 247;
+
+	--color-text-primary: #0d121c;
+	--color-text-primary-rgb: 13, 18, 28;
+
+	--color-text-secondary: #17191c;
+	--color-text-secondary-rgb: 23, 25, 28;
+
+	--color-text-tertiary: #667055;
+	--color-text-tertiary-rgb: 102, 112, 85;
+
+	// _____________________* dark theme colors : set In Template *_____________________ //
+	// &[_theme='dark'] {
+	// 	--color-background-primary: #141420;
+	// 	--color-background-primary-rgb: 20, 20, 32;
+	// 	--color-background-secondary: #2c2f3c;
+	// 	--color-background-secondary-rgb: 44, 47, 60;
+	// 	--color-background-tertiary: #5c5c5c;
+	// 	--color-background-tertiary-rgb: #92, 92, 92;
+	// 	--color-text-primary: #ffffff;
+	// 	--color-text-primary-rgb: 256, 256, 256;
+	// 	--color-text-secondary: #eeeeee;
+	// 	--color-text-secondary-rgb: 238, 238, 238;
+	// 	--color-text-tertiary: #dddddd;
+	// 	--color-text-tertiary-rgb: 221, 221, 221;
+	// }
+}

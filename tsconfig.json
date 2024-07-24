@@ -1,0 +1,43 @@
+{
+	"compilerOptions": {
+		// Default Options
+		"target": "es5",
+		"lib": ["WebWorker", "dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"noImplicitAny": false,
+		// Custom Options
+		"baseUrl": ".",
+		"paths": {
+			"@attom": ["./src/components/attom"],
+			"@headless": ["./src/components/headless"],
+			"@molecule": ["./src/components/molecule"],
+			"@organism": ["./src/components/organism"],
+			"@page/*": ["./src/components/page/*"],
+			"@template": ["./src/components/template"],
+			"@assets/*": ["./src/assets/*"],
+			"@components/*": ["./src/components/*"],
+			"@context": ["./src/context"],
+			"@hooks": ["./src/hooks"],
+			"@models": ["./src/models"],
+			"@data": ["./src/data"],
+			"@services": ["./src/services"],
+			"@utils": ["./src/utils"],
+			"@public/*": ["./public/*"],
+			"@src/*": ["./src/*"],
+			"@/*": ["./*"]
+		}
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "src/types/**/*.ts", "src/pages/s"],
+	"exclude": ["node_modules"]
+}

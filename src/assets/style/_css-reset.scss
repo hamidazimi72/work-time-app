@@ -1,0 +1,34 @@
+* {
+	padding: 0;
+	margin: 0;
+	transition: all 0.3s ease;
+	// transition-property: height, width, color, border, background, opacity, transform, box-shadow, text-shadow;
+	transition-property: height, width;
+
+	scrollbar-color: var(--color-background-tertiary);
+	scrollbar-width: thin;
+
+	&::-webkit-scrollbar {
+		width: 2px;
+		height: 2px;
+
+		transform: rotateX(180deg);
+		-ms-transform: rotateX(180deg); /* IE 9 */
+		-webkit-transform: rotateX(180deg); /* Safari and Chrome */
+	}
+}
+
+body {
+	font-family: 'iransans', 'crea', 'system-ui';
+	font-weight: 500;
+
+	&[_language='en'] {
+		font-family: 'crea', 'system-ui';
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		:root {
+			scroll-behavior: smooth;
+		}
+	}
+}
