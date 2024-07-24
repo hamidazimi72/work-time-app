@@ -1,17 +1,12 @@
-import { MainTemplate } from '@template';
-import { HealthInsurance } from '@page/health-insurance';
-import { page_healthInsurance } from '@context';
+import { page_login } from '@context';
+import Login from '@page/login';
 
 const NextPage = () => {
-	return <HealthInsurance />;
+	return <Login />;
 };
 
 export default NextPage;
 
 NextPage.getLayout = function getLayout(page) {
-	return (
-		<MainTemplate>
-			<page_healthInsurance.Provider>{page}</page_healthInsurance.Provider>
-		</MainTemplate>
-	);
+	return <page_login.Provider>{page}</page_login.Provider>;
 };

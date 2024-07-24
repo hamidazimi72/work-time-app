@@ -3,7 +3,7 @@ const servers = {
 		base: 'https://work-time-app.liara.run',
 	},
 	test_prod: {
-		base: 'https://dev-hlth-api.si24.ir',
+		base: 'https://work-time-app.liara.run',
 	},
 };
 

@@ -64,21 +64,21 @@ export const AttachmentFileCard: React.FC<AttachmentFileCardProps> = ({
 			// console.log(err);
 		};
 
-		api.$uploader_upload_POST(
-			{ onOk: onOkHandler, onFail: onFailHandler },
-			{
-				body: { file: file, fileType: 'image' },
-				onUploadProgress: (progressEvent) => {
-					let total = progressEvent?.total || 0;
-					let loaded = progressEvent?.loaded;
-					const percent = +((loaded / total) * 100).toFixed();
-					const deg = percent > 50 ? `${90 + (180 * (percent / 2)) / 50}` : `${90 + (180 * percent) / 50}`;
-					setLoadedPercent(percent);
-					setDeg(deg);
-				},
-				header: { 'Content-Type': 'multipart/form-data' },
-			},
-		);
+		// api.$uploader_upload_POST(
+		// 	{ onOk: onOkHandler, onFail: onFailHandler },
+		// 	{
+		// 		body: { file: file, fileType: 'image' },
+		// 		onUploadProgress: (progressEvent) => {
+		// 			let total = progressEvent?.total || 0;
+		// 			let loaded = progressEvent?.loaded;
+		// 			const percent = +((loaded / total) * 100).toFixed();
+		// 			const deg = percent > 50 ? `${90 + (180 * (percent / 2)) / 50}` : `${90 + (180 * percent) / 50}`;
+		// 			setLoadedPercent(percent);
+		// 			setDeg(deg);
+		// 		},
+		// 		header: { 'Content-Type': 'multipart/form-data' },
+		// 	},
+		// );
 	};
 
 	// const uploadFileHandler2 = async () => {

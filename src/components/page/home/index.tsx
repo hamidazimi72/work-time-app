@@ -17,17 +17,17 @@ export const Home: React.FC<HomeProps> = ({
 	const [state2, setState2] = useState<any>(null);
 
 	const callService = () => {
-		api.$user_signin_POST(
-			{
-				onOk: (res) => {
-					console.log(res);
-				},
-				onFail: (res) => {
-					console.log(res);
-				},
-			},
-			{ body: { nationalCode: '1361266082' } },
-		);
+		// api.$user_signin_POST(
+		// 	{
+		// 		onOk: (res) => {
+		// 			console.log(res);
+		// 		},
+		// 		onFail: (res) => {
+		// 			console.log(res);
+		// 		},
+		// 	},
+		// 	{ body: { nationalCode: '1361266082' } },
+		// );
 	};
 
 	useDidMount(() => {
