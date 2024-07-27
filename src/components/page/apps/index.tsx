@@ -23,15 +23,15 @@ export const Apps: React.FC<AppsProps> = ({
 				</div>
 				<div
 					className='w-full flex flex-1 justify-center items-center border border-cyan-400 rounded-lg'
-					onClick={() => push('/apps/worktime')}
+					onClick={() => push('/apps/cost')}
 				>
-					ساعت کاری
+					مدیریت هزینه‌ها
 				</div>
 				<div
 					className='w-full flex flex-1 justify-center items-center border border-cyan-400 rounded-lg'
-					onClick={() => push('/apps/worktime')}
+					onClick={() => push('/apps/task')}
 				>
-					ساعت کاری
+					مدیریت کارها
 				</div>
 			</div>
 		</Block>
