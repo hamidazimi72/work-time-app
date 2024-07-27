@@ -3,11 +3,11 @@ import { page_worktime } from '@context';
 
 import { FetchItems, AddItem, EditItem, DeleteItem } from './components';
 
-export type MonthsProps = {
+export type WorkTimeProps = {
 	boxProps?: React.HTMLAttributes<HTMLDivElement>;
 };
 
-export const Months: React.FC<MonthsProps> = ({
+export const WorkTime: React.FC<WorkTimeProps> = ({
 	//
 	boxProps,
 }) => {
@@ -18,7 +18,6 @@ export const Months: React.FC<MonthsProps> = ({
 	const addItem_render = addItem.show || null;
 	const editItem_render = editItem.selectedItem || null;
 	const deleteItem_render = deleteItem.selectedItem || null;
-	// const fetchItems_render = !addItem_render && !editItem_render;
 
 	return (
 		<Block boxProps={boxProps}>
@@ -30,4 +29,4 @@ export const Months: React.FC<MonthsProps> = ({
 	);
 };
 
-export default Months;
+export default WorkTime;

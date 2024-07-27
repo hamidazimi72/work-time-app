@@ -1,25 +1,25 @@
 import { Block, PrimaryButton, PrimaryInput, PureForm } from '@attom';
-import { page_login } from '@context';
+import { page_register } from '@context';
 import { useRoutes } from '@hooks';
 import Link from 'next/link';
 
-export type LoginProps = {
+export type RegisterProps = {
 	boxProps?: React.HTMLAttributes<HTMLDivElement>;
 };
 
-export const Login: React.FC<LoginProps> = ({
+export const Register: React.FC<RegisterProps> = ({
 	//
 	boxProps,
 }) => {
-	const { state, overWrite } = page_login.useContext();
-	const { _status, password, username } = state;
+	const { state, overWrite } = page_register.useContext();
+	const { _status, password, username, securityCode } = state;
 
-	const actions = page_login.useActions();
+	const actions = page_register.useActions();
 
 	const { push } = useRoutes();
 
-	const loginHanlder = () => {
-		actions?.loginUser({
+	const registerHanlder = () => {
+		actions?.registerUser({
 			okCB(res) {
 				push('/apps');
 			},
@@ -44,17 +44,24 @@ export const Login: React.FC<LoginProps> = ({
 					onChange={(e) => overWrite({ value: { password: e } })}
 					disabled={_status === 'loading'}
 				/>
+				<PrimaryInput
+					boxProps={{ className: 'w-full' }}
+					label='کد امنیتی'
+					value={securityCode}
+					onChange={(e) => overWrite({ value: { securityCode: e } })}
+					disabled={_status === 'loading'}
+				/>
 
 				<PrimaryButton
 					boxProps={{ className: 'w-full mt-4' }}
-					content='ورود'
+					content='ثبت نام'
 					loading={_status === 'loading'}
-					onClick={loginHanlder}
+					onClick={registerHanlder}
 				/>
-				<Link href='/register'>ثبت نام</Link>
+				<Link href='/login'>ورود</Link>
 			</PureForm>
 		</Block>
 	);
 };
 
-export default Login;
+export default Register;

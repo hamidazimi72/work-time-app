@@ -1,6 +1,7 @@
 const servers = {
 	test_dev: {
-		base: 'https://work-time-app.liara.run',
+		base: 'http://localhost:9000',
+		// base: 'http://api.hamid-azimi.ir',
 	},
 	test_prod: {
 		base: 'https://work-time-app.liara.run',
