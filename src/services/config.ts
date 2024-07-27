@@ -1,10 +1,10 @@
 const servers = {
 	test_dev: {
 		// base: 'http://localhost:9000',
-		base: 'http://api.hamid-azimi.ir',
+		base: 'https://api.hamid-azimi.ir',
 	},
 	test_prod: {
-		base: 'http://api.hamid-azimi.ir',
+		base: 'https://api.hamid-azimi.ir',
 	},
 };
 
