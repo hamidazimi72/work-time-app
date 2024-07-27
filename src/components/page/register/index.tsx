@@ -26,6 +26,28 @@ export const Register: React.FC<RegisterProps> = ({
 		});
 	};
 
+	const sendNotif = () => {
+		console.log(window.Notification.permission);
+		if (!window?.Notification) {
+			// Check if the browser supports notifications
+			alert('This browser does not support desktop notification');
+		} else if (Notification.permission === 'granted') {
+			// Check whether notification permissions have already been granted;
+			// if so, create a notification
+			const notification = new Notification('Hi there!');
+			// …
+		} else if (Notification.permission !== 'denied') {
+			// We need to ask the user for permission
+			Notification.requestPermission().then((permission) => {
+				// If the user accepts, let's create a notification
+				if (permission === 'granted') {
+					const notification = new Notification('Hi there!');
+					// …
+				}
+			});
+		}
+	};
+
 	return (
 		<Block boxProps={boxProps}>
 			<PureForm boxProps={{ className: `min-h-[100vh] p-10 flex flex-col gap-4 justify-center items-center` }}>
@@ -57,6 +79,13 @@ export const Register: React.FC<RegisterProps> = ({
 					content='ثبت نام'
 					loading={_status === 'loading'}
 					onClick={registerHanlder}
+				/>
+
+				<PrimaryButton
+					boxProps={{ className: 'w-full mt-4' }}
+					content='ارسال اعلان'
+					loading={_status === 'loading'}
+					onClick={sendNotif}
 				/>
 				<Link href='/login'>ورود</Link>
 			</PureForm>
