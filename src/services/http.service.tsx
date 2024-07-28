@@ -1,5 +1,4 @@
 import axios, { AxiosProgressEvent, AxiosResponse, ResponseType } from 'axios';
-import { toast } from 'react-toastify';
 
 import { appConfig } from '@services';
 import { LocalStorageAPI } from '@utils';
@@ -11,7 +10,7 @@ axios.interceptors.response.use(
 		return res;
 	},
 	(err) => {
-		if (err?.response?.status === 401) LocalStorageAPI.logout();
+		if (err?.response?.status === 401) LocalStorageAPI.logout('/login');
 		return Promise.reject(err);
 	},
 );

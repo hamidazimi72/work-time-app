@@ -13,21 +13,21 @@ export const Apps: React.FC<AppsProps> = ({
 
 	return (
 		<Block boxProps={boxProps}>
-			<div className='min-h-[100vh] p-8 flex flex-col gap-8 justify-center items-center'>
+			<div className='min-h-[calc(100vh-96px)] flex flex-col gap-8 justify-center items-center'>
 				<div
-					className='w-full flex flex-1 justify-center items-center border border-cyan-400 rounded-lg'
+					className='w-full flex flex-1 justify-center items-center text-lg text-cyan-400 border-2 border-cyan-400 rounded-lg'
 					onClick={() => push('/apps/worktime')}
 				>
 					ساعت کاری
 				</div>
 				<div
-					className='w-full flex flex-1 justify-center items-center border border-cyan-400 rounded-lg'
+					className='w-full flex flex-1 justify-center items-center text-lg text-emerald-400 border-2 border-emerald-400 rounded-lg'
 					onClick={() => push('/apps/cost')}
 				>
 					مدیریت هزینه‌ها
 				</div>
 				<div
-					className='w-full flex flex-1 justify-center items-center border border-cyan-400 rounded-lg'
+					className='w-full flex flex-1 justify-center items-center text-lg text-purple-400 border-2 border-purple-400 rounded-lg'
 					onClick={() => push('/apps/task')}
 				>
 					مدیریت کارها

@@ -1,16 +1,17 @@
 import { page_worktime } from '@context';
-import Months from '@page/months';
+import Worktime from '@page/apps/worktime';
+import { DashboardTemplate } from '@template';
 
 const NextPage = () => {
-	return <Months />;
+	return <Worktime />;
 };
 
 export default NextPage;
 
 NextPage.getLayout = function getLayout(page) {
 	return (
-		// <MainTemplate>
-		<page_worktime.Provider>{page}</page_worktime.Provider>
-		// </MainTemplate>
+		<DashboardTemplate>
+			<page_worktime.Provider>{page}</page_worktime.Provider>
+		</DashboardTemplate>
 	);
 };

@@ -41,7 +41,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 
 	return (
 		<Block boxProps={boxProps}>
-			<div className='p-4 flex flex-col gap-4'>
+			<div className='flex flex-col gap-4'>
 				<PureForm>
 					<PrimaryDatePicker
 						value={arrivalTimeFrom}
