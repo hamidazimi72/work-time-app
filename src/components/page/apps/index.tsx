@@ -1,6 +1,5 @@
 import { Block } from '@attom';
 import { useRoutes } from '@hooks';
-import Link from 'next/link';
 
 export type AppsProps = {
 	boxProps?: React.HTMLAttributes<HTMLDivElement>;
