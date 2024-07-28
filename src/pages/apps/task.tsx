@@ -1,4 +1,4 @@
-import { page_worktime } from '@context';
+import { page_task } from '@context';
 import Task from '@page/apps/task';
 
 const NextPage = () => {
@@ -10,7 +10,7 @@ export default NextPage;
 NextPage.getLayout = function getLayout(page) {
 	return (
 		// <MainTemplate>
-		<page_worktime.Provider>{page}</page_worktime.Provider>
+		<page_task.Provider>{page}</page_task.Provider>
 		// </MainTemplate>
 	);
 };
