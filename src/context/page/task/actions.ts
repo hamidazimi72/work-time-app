@@ -14,9 +14,7 @@ export const useActions = () => {
 			parameters?.statusChangeCB ?? null,
 		];
 
-		const { fetchItems } = state;
-		const { filter } = fetchItems;
-		const { from, size } = filter;
+		// const { fetchItems } = state;
 
 		type Res = Service_response<API_example_getAll_item[]>;
 
@@ -43,47 +41,6 @@ export const useActions = () => {
 		api.$serviceSimulator_POST(
 			{ onOk, onFail, onStatus },
 			{ okResponse: true, dataModel: { name: 'x', value: 'y' }, responseType: 'array' },
-		);
-	};
-
-	const getItem = (parameters?: Action_callbacks & {}) => {
-		const [onOkCB, onFailCB, onStatusCB] = [
-			parameters?.okCB ?? null,
-			parameters?.failCB ?? null,
-			parameters?.statusChangeCB ?? null,
-		];
-
-		const { getItem } = state;
-		const { selectedItem } = getItem;
-
-		type Res = Service_response<API_example_getAll_item>;
-
-		const onStatus = async (status: Service_status) => {
-			if (typeof onStatusCB === 'function') onStatusCB(status);
-
-			overWrite({ scope: 'getItem', value: { _getItem: status } });
-		};
-
-		const onOk = async (res: Res) => {
-			if (typeof onOkCB === 'function') onOkCB();
-
-			const $getItem = res?.info;
-
-			overWrite({ scope: 'getItem', value: { $getItem } });
-		};
-
-		const onFail = async (res: Res | null) => {
-			if (typeof onFailCB === 'function') onFailCB();
-
-			overWrite({ scope: 'getItem', value: { $getItem: null } });
-		};
-
-		if (!selectedItem) return;
-
-		// api.$x_x_POST({ onFail, onOk, onStatus }, { body: { from , to: from + size -1  } });
-		api.$serviceSimulator_POST(
-			{ onOk, onFail, onStatus },
-			{ okResponse: true, dataModel: { name1: 'x', name2: 'y' }, responseType: 'object' },
 		);
 	};
 
@@ -187,5 +144,5 @@ export const useActions = () => {
 
 	//--------------------* End Action  *--------------------//
 
-	return { fetchItems, getItem, addItem, editItem, deleteItem };
+	return { fetchItems, addItem, editItem, deleteItem };
 };
