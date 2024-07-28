@@ -1,7 +1,6 @@
 import { PrimaryButton, PrimaryModal } from '@attom';
-import { page_worktime } from '@context';
+import { page_cost } from '@context';
 import { useToast } from '@hooks';
-import { DateAPI } from '@utils';
 
 export type DeleteItemProps = {
 	boxProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -11,11 +10,11 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 	//
 	boxProps,
 }) => {
-	const { state, overWrite, initState } = page_worktime.useContext();
+	const { state, overWrite, initState } = page_cost.useContext();
 	const { deleteItem } = state;
 	const { selectedItem } = deleteItem;
 
-	const actions = page_worktime.useActions();
+	const actions = page_cost.useActions();
 
 	const { showToast } = useToast();
 
@@ -23,11 +22,11 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 		overWrite({ value: { ...initState.deleteItem }, scope: 'deleteItem' });
 	};
 
-	const deleteTimeHandler = (closeHanlder: () => void) => {
+	const deleteCostHandler = (closeHanlder: () => void) => {
 		actions.deleteItem({
 			okCB(res) {
 				closeHanlder();
-				showToast({ message: 'روز کاری با موفقیت حذف گردید!', showIcon: true, type: 'success' });
+				showToast({ message: 'هزینه با موفقیت حذف گردید!', showIcon: true, type: 'success' });
 			},
 		});
 	};
@@ -39,13 +38,9 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 			render={(closeHanlder) => (
 				<div className='flex flex-col gap-4 mt-8'>
 					<h2>
-						آیا از حذف روز کاری{' '}
-						<span className='text-primary-1'>
-							" {DateAPI?.gregorianToJalaali(selectedItem?.arrivalTime?.toString() || '')?.standardDate} "
-						</span>{' '}
-						اطمینان دارید؟
+						آیا از حذف هزینه <span className='text-primary-1'>" {selectedItem?.category} "</span> اطمینان دارید؟
 					</h2>
-					<PrimaryButton content='ثبت' onClick={() => deleteTimeHandler(closeHanlder)} />
+					<PrimaryButton content='ثبت' onClick={() => deleteCostHandler(closeHanlder)} />
 				</div>
 			)}
 		/>

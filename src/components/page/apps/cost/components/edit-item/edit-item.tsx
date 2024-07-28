@@ -1,10 +1,5 @@
-import persian from 'react-date-object/calendars/persian';
-import persian_fa from 'react-date-object/locales/persian_fa';
-import DatePicker, { DateObject } from 'react-multi-date-picker';
-import TimePicker from 'react-multi-date-picker/plugins/time_picker';
-
-import { PrimaryButton, PrimaryCheckbox, PrimaryModal } from '@attom';
-import { page_worktime } from '@context';
+import { PrimaryButton, PrimaryDatePicker, PrimaryInput, PrimaryModal, PureForm } from '@attom';
+import { page_cost } from '@context';
 import { useDidMount, useToast } from '@hooks';
 
 export type EditItemProps = {
@@ -15,12 +10,12 @@ export const EditItem: React.FC<EditItemProps> = ({
 	//
 	boxProps,
 }) => {
-	const { state, overWrite, initState } = page_worktime.useContext();
+	const { state, overWrite, initState } = page_cost.useContext();
 	const { editItem } = state;
 	const { form, selectedItem } = editItem;
-	const { arrivalTime, departureTime, isVacation } = form;
+	const { category, date, description, price } = form;
 
-	const actions = page_worktime.useActions();
+	const actions = page_cost.useActions();
 
 	const { showToast } = useToast();
 
@@ -28,24 +23,16 @@ export const EditItem: React.FC<EditItemProps> = ({
 		overWrite({ value: { ...initState.editItem }, scope: 'editItem' });
 	};
 
-	const onChangeHandler1 = (e: DateObject) => {
-		overWrite({ value: { arrivalTime: e?.toUnix() * 1000 }, scope: 'editItem.form' });
-	};
-
-	const onChangeHandler2 = (e: DateObject) => {
-		overWrite({ value: { departureTime: e?.toUnix() * 1000 }, scope: 'editItem.form' });
-	};
-
-	const editTimeHandler = (closeHanlder: () => void) => {
-		if (isVacation && !arrivalTime) {
-			showToast({ message: 'لطفا تاریخ را وارد کنید!', showIcon: true, type: 'warning' });
-			return;
-		}
+	const addTimeHandler = (closeHanlder: () => void) => {
+		// if (isVacation && !arrivalTime) {
+		// 	showToast({ message: 'لطفا تاریخ را وارد کنید!', showIcon: true, type: 'warning' });
+		// 	return;
+		// }
 
 		actions.editItem({
 			okCB(res) {
 				closeHanlder();
-				showToast({ message: 'روز کاری با موفقیت ویرایش گردید!', showIcon: true, type: 'success' });
+				showToast({ message: 'هزینه با موفقیت ویرایش گردید!', showIcon: true, type: 'success' });
 			},
 		});
 	};
@@ -56,9 +43,10 @@ export const EditItem: React.FC<EditItemProps> = ({
 		overWrite({
 			value: {
 				id: selectedItem?.id,
-				arrivalTime: selectedItem?.arrivalTime,
-				departureTime: selectedItem?.departureTime,
-				isVacation: selectedItem?.isVacation,
+				category: selectedItem?.category,
+				date: selectedItem?.date,
+				description: selectedItem?.description,
+				price: selectedItem?.price,
 			},
 			scope: 'editItem.form',
 		});
@@ -71,34 +59,32 @@ export const EditItem: React.FC<EditItemProps> = ({
 			render={(closeHanlder) => (
 				<div className='flex flex-col gap-4'>
 					<div className='flex flex-col gap-2'>
-						<DatePicker
-							format='YYYY/MM/DD - HH:mm'
-							calendar={persian}
-							locale={persian_fa}
-							calendarPosition='bottom-right'
-							value={arrivalTime}
-							onChange={(e: DateObject) => onChangeHandler1(e)}
-							disabled={isVacation}
-							plugins={[<TimePicker position='bottom' hideSeconds />]}
-						/>
-						<DatePicker
-							format='YYYY/MM/DD - HH:mm'
-							calendar={persian}
-							locale={persian_fa}
-							calendarPosition='bottom-right'
-							value={departureTime}
-							onChange={(e: DateObject) => onChangeHandler2(e)}
-							disabled={isVacation}
-							plugins={[<TimePicker position='bottom' hideSeconds />]}
-						/>
+						<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
+							<PrimaryInput
+								label='عنوان'
+								value={category}
+								onChange={(e) => overWrite({ value: { category: e }, scope: 'editItem.form' })}
+							/>
+							<PrimaryInput
+								label='مبلغ'
+								placeholder='مبلغ (تومان)'
+								value={price}
+								onChange={(e) => {
+									overWrite({ value: { price: e }, scope: 'editItem.form' });
+								}}
+								priceMode
+							/>
 
-						<PrimaryCheckbox
-							label='مرخصی'
-							value={isVacation}
-							onChange={(value) => overWrite({ value: { isVacation: value }, scope: 'editItem.form' })}
-						/>
-
-						<PrimaryButton content='ثبت' onClick={() => editTimeHandler(closeHanlder)} />
+							<PrimaryDatePicker value={date} onChange={(e) => overWrite({ value: { date: e }, scope: 'editItem.form' })} />
+							<PrimaryInput
+								label='توضیحات'
+								value={description}
+								onChange={(e) => {
+									overWrite({ value: { description: e }, scope: 'editItem.form' });
+								}}
+							/>
+							<PrimaryButton content='ثبت' onClick={() => addTimeHandler(closeHanlder)} />
+						</PureForm>
 					</div>
 				</div>
 			)}

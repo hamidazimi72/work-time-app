@@ -1,4 +1,4 @@
-import { page_worktime } from '@context';
+import { page_cost } from '@context';
 import Cost from '@page/apps/cost';
 
 const NextPage = () => {
@@ -10,7 +10,7 @@ export default NextPage;
 NextPage.getLayout = function getLayout(page) {
 	return (
 		// <MainTemplate>
-		<page_worktime.Provider>{page}</page_worktime.Provider>
+		<page_cost.Provider>{page}</page_cost.Provider>
 		// </MainTemplate>
 	);
 };

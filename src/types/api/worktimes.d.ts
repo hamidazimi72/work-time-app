@@ -7,5 +7,3 @@ declare type API_worktimes_item = {
 	departureTime: number;
 	isVacation: boolean;
 };
-
-declare type API_offer = API_offers_item & {};

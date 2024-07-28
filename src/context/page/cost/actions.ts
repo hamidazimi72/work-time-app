@@ -3,7 +3,7 @@ import { api } from '@services';
 import { useContext } from '.';
 
 export const useActions = () => {
-	const { state, overWrite } = useContext();
+	const { state, overWrite, initState } = useContext();
 
 	//--------------------* Start Actions *--------------------//
 
@@ -16,12 +16,12 @@ export const useActions = () => {
 
 		const { fetchItems } = state;
 		const { filter } = fetchItems;
-		const { arrivalTimeFrom, arrivalTimeTo, arrivalSort } = filter;
+		const { dateFrom, dateSort, dateTo } = filter;
 
-		const arrivalTimeFrom_formatted = new Date(arrivalTimeFrom || '').setHours(0, 0, 0, 0);
-		const arrivalTimeTo_formatted = new Date(arrivalTimeTo || '').setHours(23, 59, 59, 0);
+		const dateFrom_formatted = new Date(dateFrom || '').setHours(0, 0, 0, 0);
+		const dateTo_formatted = new Date(dateTo || '').setHours(23, 59, 59, 0);
 
-		type Res = Service_response<{ info: API_worktimes_item }>;
+		type Res = Service_response<{ info: API_costs_item }>;
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -34,27 +34,23 @@ export const useActions = () => {
 
 			const $fetchItems = res?.body?.info || [];
 
-			let totalTime = 0;
-			$fetchItems.forEach((item: API_worktimes_item) => {
-				if (!item?.departureTime) return;
+			let totalCosts = 0;
+			$fetchItems.forEach((item: API_costs_item) => {
+				if (!item?.price) return;
 
-				const timeDiffrence = item?.departureTime - item?.arrivalTime;
-				totalTime += timeDiffrence;
+				totalCosts += item?.price;
 			});
 
-			overWrite({ scope: 'fetchItems', value: { $fetchItems, totalTime } });
+			overWrite({ scope: 'fetchItems', value: { $fetchItems, totalCosts } });
 		};
 
 		const onFail = async (res?: Res) => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 
-			overWrite({ scope: 'fetchItems', value: { $fetchItems: [], totalTime: 0 } });
+			overWrite({ scope: 'fetchItems', value: { $fetchItems: [], totalCosts: 0 } });
 		};
 
-		api.$worktimes_GET(
-			{ onStatus, onOk, onFail },
-			{ query: { arrivalTimeFrom: arrivalTimeFrom_formatted, arrivalTimeTo: arrivalTimeTo_formatted, arrivalSort } },
-		);
+		api.$costs_GET({ onStatus, onOk, onFail }, { query: { dateFrom: dateFrom_formatted, dateTo: dateTo_formatted, dateSort } });
 	};
 
 	const addItem = (parameters?: Action_callbacks & {}) => {
@@ -66,7 +62,7 @@ export const useActions = () => {
 
 		const { addItem } = state;
 		const { form } = addItem;
-		const { arrivalTime, departureTime, isVacation } = form;
+		const { category, date, description, price } = form;
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -83,10 +79,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$worktimes_POST(
-			{ onStatus, onOk, onFail },
-			{ body: { arrivalTime: +arrivalTime, departureTime: +departureTime, isVacation } },
-		);
+		api.$costs_POST({ onStatus, onOk, onFail }, { body: { category, date, description, price: +price } });
 	};
 
 	const editItem = (parameters?: Action_callbacks & {}) => {
@@ -98,7 +91,7 @@ export const useActions = () => {
 
 		const { editItem } = state;
 		const { form } = editItem;
-		const { arrivalTime, departureTime, isVacation, id } = form;
+		const { category, date, description, price, id } = form;
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -115,10 +108,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$worktimes_PUT(
-			{ onStatus, onOk, onFail },
-			{ body: { id: +id, arrivalTime: +arrivalTime, departureTime: +departureTime, isVacation } },
-		);
+		api.$costs_PUT({ onStatus, onOk, onFail }, { body: { id: +id, category, date, description, price: +price } });
 	};
 
 	const deleteItem = (parameters?: Action_callbacks & {}) => {
@@ -146,7 +136,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$worktimes_id_DELETE({ onStatus, onOk, onFail }, { param: { id: selectedItem?.id ?? 0 } });
+		api.$costs_id_DELETE({ onStatus, onOk, onFail }, { param: { id: selectedItem?.id ?? 0 } });
 	};
 
 	return { fetchItems, addItem, editItem, deleteItem };
