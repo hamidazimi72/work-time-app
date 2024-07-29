@@ -3,7 +3,7 @@ import { api } from '@services';
 import { useContext } from '.';
 
 export const useActions = () => {
-	const { state, overWrite, initState } = useContext();
+	const { state, overWrite } = useContext();
 
 	//--------------------* Start Actions *--------------------//
 

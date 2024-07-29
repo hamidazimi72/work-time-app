@@ -4,9 +4,9 @@ export type InitState = {
 	//____________________** fetch All items **____________________//
 	fetchItems: {
 		_fetchItems: Service_status;
-		$fetchItems: API_example_getAll_item[];
+		$fetchItems: API_task_item[];
 		filter: {
-			isComplete: boolean | null;
+			isComplete: { name: string; value: string };
 		};
 	};
 	//____________________** add one item **____________________//
@@ -21,7 +21,7 @@ export type InitState = {
 	//____________________** edit one item **____________________//
 	editItem: {
 		_editItem: Service_status;
-		selectedItem: API_example_getAll_item | null;
+		selectedItem: API_task_item | null;
 		form: {
 			isComplete: boolean;
 			title: string;
@@ -30,7 +30,7 @@ export type InitState = {
 	//____________________** delete one item **____________________//
 	deleteItem: {
 		_deleteItem: Service_status;
-		selectedItem: API_example_getAll_item | null;
+		selectedItem: API_task_item | null;
 	};
 	//____________________** other global scope fields **____________________//
 };
@@ -42,7 +42,7 @@ export const initState: InitState = {
 		$fetchItems: [],
 
 		filter: {
-			isComplete: null,
+			isComplete: { name: 'همه موارد', value: 'undefined' },
 		},
 	},
 	//____________________** add one item **____________________//

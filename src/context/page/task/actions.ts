@@ -3,7 +3,7 @@ import { api } from '@services';
 import { useContext } from '.';
 
 export const useActions = () => {
-	const { state, setState, initState, overWrite } = useContext();
+	const { state, overWrite } = useContext();
 
 	//--------------------* Start Actions *--------------------//
 
@@ -14,9 +14,12 @@ export const useActions = () => {
 			parameters?.statusChangeCB ?? null,
 		];
 
-		// const { fetchItems } = state;
+		const { fetchItems } = state;
+		const { filter } = fetchItems;
+		const { isComplete } = filter;
+		const isCompleted = isComplete?.value == 'true' ? true : isComplete?.value == 'false' ? false : undefined;
 
-		type Res = Service_response<API_example_getAll_item[]>;
+		type Res = Service_response<{ info: API_task_item[] }>;
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -26,22 +29,17 @@ export const useActions = () => {
 		const onOk = async (res: Res) => {
 			if (typeof onOkCB === 'function') onOkCB(res);
 
-			const $fetchItems = res?.info ?? [];
-			const total = res?.totalCount ?? 0;
+			const $fetchItems = res?.body?.info || [];
 
-			overWrite({ scope: 'fetchItems', value: { $fetchItems, total } });
+			overWrite({ scope: 'fetchItems', value: { $fetchItems } });
 		};
 
 		const onFail = async (res?: Res) => {
 			if (typeof onFailCB === 'function') onFailCB(res);
-			overWrite({ scope: 'fetchItems', value: { $fetchItems: [], total: 0 } });
+			overWrite({ scope: 'fetchItems', value: { $fetchItems: [] } });
 		};
 
-		// api.$example_POST({ onStatus, onOk, onFail }, { body: { from, to: from + size - 1 } });
-		api.$serviceSimulator_POST(
-			{ onOk, onFail, onStatus },
-			{ okResponse: true, dataModel: { name: 'x', value: 'y' }, responseType: 'array' },
-		);
+		api.$task_GET({ onOk, onFail, onStatus }, { query: { isComplete: isCompleted } });
 	};
 
 	const addItem = (parameters?: Action_callbacks & {}) => {
@@ -53,9 +51,9 @@ export const useActions = () => {
 
 		const { addItem } = state;
 		const { form } = addItem;
-		const {} = form;
+		const { isComplete, title } = form;
 
-		type Res = Service_response<undefined>;
+		type Res = Service_response<{ info: API_task_item }>;
 
 		const onStatus = async (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -64,6 +62,7 @@ export const useActions = () => {
 
 		const onOk = async (res: Res) => {
 			if (typeof onOkCB === 'function') onOkCB();
+
 			fetchItems();
 		};
 
@@ -71,22 +70,21 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB();
 		};
 
-		// api.$x_x({ onFail, onOk, onStatus, showOkMessage: true }, { body: {} });
-		api.$serviceSimulator_POST({ onOk, onFail, onStatus }, { okResponse: true, dataModel: {}, responseType: 'object' });
+		api.$task_POST({ onOk, onFail, onStatus }, { body: { isComplete, title } });
 	};
 
-	const editItem = (parameters?: Action_callbacks & {}) => {
+	const editItem = (parameters?: Action_callbacks & { item: API_task_item | null }) => {
 		const [onOkCB, onFailCB, onStatusCB] = [
 			parameters?.okCB ?? null,
 			parameters?.failCB ?? null,
 			parameters?.statusChangeCB ?? null,
 		];
 
-		const { editItem } = state;
-		const { form, selectedItem } = editItem;
-		const {} = form;
+		const id = parameters?.item?.id;
+		const title = parameters?.item?.title || '';
+		const isComplete = parameters?.item?.isComplete || false;
 
-		type Res = Service_response<undefined>;
+		type Res = Service_response<{ info: API_task_item[] }>;
 
 		const onStatus = async (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -103,10 +101,9 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB();
 		};
 
-		if (!selectedItem) return;
+		if (!id) return;
 
-		// api.$x_x({ onFail, onOk, onStatus, showOkMessage: true }, { body: {} });
-		api.$serviceSimulator_POST({ onOk, onFail, onStatus }, { okResponse: true, dataModel: {}, responseType: 'object' });
+		api.$task_PUT({ onFail, onOk, onStatus }, { body: { id, isComplete, title } });
 	};
 
 	const deleteItem = (parameters?: Action_callbacks & {}) => {
@@ -119,7 +116,7 @@ export const useActions = () => {
 		const { deleteItem } = state;
 		const { selectedItem } = deleteItem;
 
-		type Res = Service_response<undefined>;
+		type Res = Service_response<{ info: API_task_item }>;
 
 		const onStatus = async (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -138,8 +135,7 @@ export const useActions = () => {
 
 		if (!selectedItem) return;
 
-		// api.$x_x({ onFail, onOk, onStatus, showOkMessage: true }, { body: {} });
-		api.$serviceSimulator_POST({ onOk, onFail, onStatus }, { okResponse: true, dataModel: {}, responseType: 'object' });
+		api.$task_id_DELETE({ onFail, onOk, onStatus }, { param: { id: selectedItem?.id } });
 	};
 
 	//--------------------* End Action  *--------------------//

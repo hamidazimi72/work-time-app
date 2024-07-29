@@ -1,5 +1,5 @@
 import { PrimaryButton, PrimaryModal } from '@attom';
-import { page_worktime } from '@context';
+import { page_task } from '@context';
 import { useToast } from '@hooks';
 import { DateAPI } from '@utils';
 
@@ -11,11 +11,11 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 	//
 	boxProps,
 }) => {
-	const { state, overWrite, initState } = page_worktime.useContext();
+	const { state, overWrite, initState } = page_task.useContext();
 	const { deleteItem } = state;
 	const { selectedItem } = deleteItem;
 
-	const actions = page_worktime.useActions();
+	const actions = page_task.useActions();
 
 	const { showToast } = useToast();
 
@@ -27,25 +27,21 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 		actions.deleteItem({
 			okCB(res) {
 				closeHanlder();
-				showToast({ message: 'روز کاری با موفقیت حذف گردید!', showIcon: true, type: 'success' });
+				showToast({ message: 'وظیفه با موفقیت حذف گردید!', showIcon: true, type: 'success' });
 			},
 		});
 	};
 
 	return (
 		<PrimaryModal
-			boxProps={boxProps}
+			boxProps={{ ...boxProps, className: `p-4 ${boxProps?.className || ''}` }}
 			onClose={onClose}
 			render={(closeHanlder) => (
 				<div className='flex flex-col gap-4 mt-8'>
 					<h2>
-						آیا از حذف روز کاری{' '}
-						<span className='text-primary-1'>
-							" {DateAPI?.gregorianToJalaali(selectedItem?.arrivalTime?.toString() || '')?.standardDate} "
-						</span>{' '}
-						اطمینان دارید؟
+						آیا از حذف وظیفه <span className='text-primary-1'>" {selectedItem?.title} "</span> اطمینان دارید؟
 					</h2>
-					<PrimaryButton content='ثبت' onClick={() => deleteTimeHandler(closeHanlder)} />
+					<PrimaryButton content='حذف' onClick={() => deleteTimeHandler(closeHanlder)} />
 				</div>
 			)}
 		/>
