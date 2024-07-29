@@ -38,7 +38,7 @@ export const PureModal: React.FC<PureModalProps> = ({
 	boxProps,
 	boxSize = sideModal
 		? 'mr-auto max-h-[100vh] h-[100vh] w-[80vw] lg:w-[60vw] xl:w-[40vw]'
-		: 'max-h-[90vh] min-h-[50vh] max-w-[95vw] min-w-[90vw] sm:min-w-[75vw] md:min-w-[60vw] lg:min-w-[40vw]',
+		: 'max-h-[90vh] max-w-[95vw] min-w-[90vw] sm:min-w-[75vw] md:min-w-[60vw] lg:min-w-[40vw]',
 	boxBgColor = 'bg-background-primary',
 
 	closeIconClass = '',
@@ -94,14 +94,14 @@ export const PureModal: React.FC<PureModalProps> = ({
 				{...boxProps}
 				className={`${boxProps?.className || ''} ${
 					fullscreen ? 'w-[100vw] h-[100vh] top-0 left-0' : `${boxSize || ''}`
-				} ${boxBgColor}  ${disableOverflowY ? '' : 'overflow-y-auto'} ${fullscreen ? 'fixed' : 'relative'} rounded app-scrollbar`}
+				} ${boxBgColor}  ${disableOverflowY ? '' : 'overflow-y-auto'} ${fullscreen ? 'fixed' : 'relative'} rounded-lg app-scrollbar`}
 				ref={ref}
 			>
 				{!hideCloseIcon && onClose && (
 					<SVGIcon
-						icon='close'
+						icon='close_regular_rounded'
 						textColor='text-text-tertiary hover:text-text-primary'
-						width='w-[28px]'
+						width='w-4'
 						boxProps={{
 							onClick: closeHandler,
 							className: `${closeIconClass} ${closeIconPosition} ${closeIconTextColor} absolute z-[999] text-lg font-normal opacity-50 cursor-pointer hover:opacity-100 select-none`,
