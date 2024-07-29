@@ -1,4 +1,4 @@
-import { Block, PrimaryButton, PrimaryDatePicker, PureForm } from '@attom';
+import { Block, PrimaryButton, PrimaryDatePicker, PureForm, SVGIcon } from '@attom';
 import { page_worktime } from '@context';
 import { useDidMount } from '@hooks';
 import { DateAPI } from '@utils';
@@ -70,13 +70,19 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 										{` `}
 										<small>({DateAPI.gregorianToJalaali(new Date(item?.arrivalTime))?.dayName})</small>
 									</span>
-									<div className='flex gap-1'>
-										<span className='w-5 h-5 flex justify-center items-center' onClick={() => renderEdit(item)}>
-											<i className='fa fa-pencil' />
-										</span>
-										<span className='w-5 h-5 flex justify-center items-center' onClick={() => renderDelete(item)}>
-											<i className='fa fa-trash' />
-										</span>
+									<div className='flex items-center gap-3'>
+										<SVGIcon
+											width='w-4'
+											icon='edit_regular_rounded'
+											textColor='text-cancel'
+											boxProps={{ onClick: () => renderEdit(item) }}
+										/>
+										<SVGIcon
+											width='w-4'
+											icon='trash_regular_rounded'
+											textColor='text-cancel'
+											boxProps={{ onClick: () => renderDelete(item) }}
+										/>
 									</div>
 								</div>
 								<div className='flex gap-2'>

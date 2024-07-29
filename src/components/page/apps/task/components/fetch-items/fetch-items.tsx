@@ -1,4 +1,4 @@
-import { Block, PrimaryButton, PrimaryCheckbox, PrimarySelect, PureForm } from '@attom';
+import { Block, PrimaryButton, PrimaryCheckbox, PrimarySelect, PureForm, SVGIcon } from '@attom';
 import { page_task } from '@context';
 import { useDidMount, useToast } from '@hooks';
 
@@ -81,14 +81,19 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 									<PrimaryCheckbox value={item?.isComplete} onChange={() => changeStatusHandler(item)} />
 									<span>{item?.title}</span>
 								</div>
-
-								<div className='flex items-center gap-2'>
-									<span className='w-5 h-5 flex justify-center items-center' onClick={() => renderEdit(item)}>
-										<i className='fa fa-pencil' />
-									</span>
-									<span className='w-5 h-5 flex justify-center items-center' onClick={() => renderDelete(item)}>
-										<i className='fa fa-trash' />
-									</span>
+								<div className='flex items-center gap-3'>
+									<SVGIcon
+										width='w-4'
+										icon='edit_regular_rounded'
+										textColor='text-cancel'
+										boxProps={{ onClick: () => renderEdit(item) }}
+									/>
+									<SVGIcon
+										width='w-4'
+										icon='trash_regular_rounded'
+										textColor='text-cancel'
+										boxProps={{ onClick: () => renderDelete(item) }}
+									/>
 								</div>
 							</div>
 						);

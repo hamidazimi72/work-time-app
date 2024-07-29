@@ -8,8 +8,10 @@ import { createContext } from '../../create-context';
 
 let date = new DateObject({ calendar: persian, locale: persian_fa });
 
-let arrivalTimeFrom_timeStamp = DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfMonth().format()))?.timeStamp;
-let arrivalTimeTo_timeStamp = DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfMonth().format()))?.timeStamp;
+let arrivalTimeFrom_timeStamp = Number(
+	DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfMonth().format()))?.timeStamp,
+);
+let arrivalTimeTo_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfMonth().format()))?.timeStamp);
 
 export type InitState = {
 	//____________________** fetch All items **____________________//
@@ -30,8 +32,8 @@ export type InitState = {
 		_addItem: Service_status;
 		show: boolean;
 		form: {
-			arrivalTime: string | Date;
-			departureTime: string | Date;
+			arrivalTime: number | Date | undefined;
+			departureTime: number | Date | undefined;
 			isVacation: boolean;
 		};
 	};
@@ -41,8 +43,8 @@ export type InitState = {
 		selectedItem: API_example_getAll_item | null;
 		form: {
 			id: string;
-			arrivalTime: string | Date;
-			departureTime: string | Date;
+			arrivalTime: number | Date | undefined;
+			departureTime: number | Date | undefined;
 			isVacation: boolean;
 		};
 	};
@@ -75,8 +77,8 @@ export const initState: InitState = {
 		show: false,
 
 		form: {
-			arrivalTime: '',
-			departureTime: '',
+			arrivalTime: undefined,
+			departureTime: undefined,
 			isVacation: false,
 		},
 	},
@@ -88,8 +90,8 @@ export const initState: InitState = {
 
 		form: {
 			id: '',
-			arrivalTime: '',
-			departureTime: '',
+			arrivalTime: undefined,
+			departureTime: undefined,
 			isVacation: false,
 		},
 	},

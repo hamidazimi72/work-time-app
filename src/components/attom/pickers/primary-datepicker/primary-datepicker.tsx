@@ -5,6 +5,8 @@ import persian_fa from 'react-date-object/locales/persian_fa';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
 
+import 'react-multi-date-picker/styles/layouts/mobile.css';
+
 import { Block } from '@attom';
 import { useDidMount } from '@hooks';
 
@@ -18,6 +20,7 @@ export type PrimaryDatePickerProps = {
 	onChange?: null | ((value: string | number, event: any) => any);
 	focus?: boolean;
 	disabled?: boolean;
+	mobileMode?: boolean;
 	//
 	timePicker?: boolean;
 	toolbar?: boolean;
@@ -34,6 +37,7 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 	onChange = null,
 	focus = false,
 	disabled = false,
+	mobileMode = true,
 
 	timePicker = false,
 	toolbar = false,
@@ -77,6 +81,7 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 				</div>
 			) : null}
 			<DatePicker
+				className={mobileMode ? `rmdp-mobile` : ``}
 				format={format}
 				ref={rf}
 				calendar={persian}
