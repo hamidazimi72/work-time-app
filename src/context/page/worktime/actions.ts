@@ -85,7 +85,7 @@ export const useActions = () => {
 
 		api.$worktimes_POST(
 			{ onStatus, onOk, onFail },
-			{ body: { arrivalTime: +arrivalTime, departureTime: +departureTime, isVacation } },
+			{ body: { arrivalTime: arrivalTime ? +arrivalTime : 0, departureTime: departureTime ? +departureTime : 0, isVacation } },
 		);
 	};
 
@@ -117,7 +117,14 @@ export const useActions = () => {
 
 		api.$worktimes_PUT(
 			{ onStatus, onOk, onFail },
-			{ body: { id: +id, arrivalTime: +arrivalTime, departureTime: +departureTime, isVacation } },
+			{
+				body: {
+					id: +id,
+					arrivalTime: arrivalTime ? +arrivalTime : 0,
+					departureTime: departureTime ? +departureTime : 0,
+					isVacation,
+				},
+			},
 		);
 	};
 

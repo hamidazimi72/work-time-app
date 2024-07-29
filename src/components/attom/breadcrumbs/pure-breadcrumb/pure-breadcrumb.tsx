@@ -42,7 +42,9 @@ export const PureBreadcrumb: React.FC<PureBreadcrumbProps> = ({
 					onClick={item[onClickProperty] ?? null}
 				>
 					<span {...nameProps} className={`${nameProps?.className || ''} flex items-center`}>
-						{item?.type === 'back' && <SVGIcon icon='arrowDown' width='w-[18px]' boxProps={{ className: 'rotate-[-90deg]' }} />}
+						{item?.type === 'back' && (
+							<SVGIcon icon='angle_down_regular_rounded' width='w-[18px]' boxProps={{ className: 'rotate-[-90deg]' }} />
+						)}
 						{item?.icon && <i className={`${item.icon}`} />}
 						{item?.svgIcon && <SVGIcon icon={item?.svgIcon} width='w-[14px]' />}
 						{item[nameProperty] ?? ''}
