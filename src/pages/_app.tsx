@@ -33,7 +33,7 @@ const LayoutContainer = ({ children }) => {
 		// setLanguage({ language: localStorage.getItem('_language') || 'fa' });
 		setResponsiveSize();
 		setPlatform();
-		// checkAndSetAccount();
+		checkAndSetAccount();
 		// sw register
 		ServiceWorker.register();
 	});

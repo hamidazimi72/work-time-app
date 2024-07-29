@@ -33,16 +33,16 @@ export const useActions = () => {
 	const checkAndSetAccount = async (parameters?: Action_callbacks & { data: { [key: string]: any } }) => {
 		const accountLS = LocalStorageAPI.getItem('_account', 'json');
 		const tokenLS = LocalStorageAPI.getItem('token', 'json');
-		const tokenExpiredTimeLS = LocalStorageAPI.getItem('token-expired-time', 'json');
+		// const tokenExpiredTimeLS = LocalStorageAPI.getItem('token-expired-time', 'json');
 
-		const validTokenAndAccount = tokenLS && accountLS && tokenLS === accountLS?.token;
-		const validTokenExpiration = validTokenAndAccount
-			? tokenExpiredTimeLS && tokenExpiredTimeLS <= Date.now()
-				? false
-				: true
-			: false;
+		const validTokenAndAccount = tokenLS && accountLS && tokenLS === accountLS?.username;
+		// const validTokenExpiration = validTokenAndAccount
+		// 	? tokenExpiredTimeLS && tokenExpiredTimeLS <= Date.now()
+		// 		? false
+		// 		: true
+		// 	: false;
 
-		if (validTokenExpiration) setState({ ...accountLS, type: accountLS?.type || 'A' });
+		if (validTokenAndAccount) setState({ ...accountLS });
 		else logout();
 	};
 	//--------------------* End Action  *--------------------//
