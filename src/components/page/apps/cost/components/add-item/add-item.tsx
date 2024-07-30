@@ -42,35 +42,38 @@ export const AddItem: React.FC<AddItemProps> = ({
 			boxProps={boxProps}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4'>
-					<div className='flex flex-col gap-2'>
-						<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
-							<PrimaryInput
-								label='عنوان'
-								value={category}
-								onChange={(e) => overWrite({ value: { category: e }, scope: 'addItem.form' })}
-							/>
-							<PrimaryInput
-								label='مبلغ'
-								placeholder='مبلغ (تومان)'
-								value={price}
-								onChange={(e) => {
-									overWrite({ value: { price: e }, scope: 'addItem.form' });
-								}}
-								priceMode
-							/>
-
-							<PrimaryDatePicker value={date} onChange={(e) => overWrite({ value: { date: e }, scope: 'addItem.form' })} />
-							<PrimaryInput
-								label='توضیحات'
-								value={description}
-								onChange={(e) => {
-									overWrite({ value: { description: e }, scope: 'addItem.form' });
-								}}
-							/>
-							<PrimaryButton content='ثبت' onClick={() => addCostHandler(closeHanlder)} />
-						</PureForm>
-					</div>
+				<div className='flex flex-col gap-8'>
+					<h3>افزودن هزینه</h3>
+					<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
+						<PrimaryInput
+							label='عنوان'
+							value={category}
+							onChange={(e) => overWrite({ value: { category: e }, scope: 'addItem.form' })}
+							focus
+						/>
+						<PrimaryInput
+							label='مبلغ'
+							placeholder='مبلغ (تومان)'
+							value={price}
+							onChange={(e) => {
+								overWrite({ value: { price: e }, scope: 'addItem.form' });
+							}}
+							priceMode
+						/>
+						<PrimaryDatePicker
+							label='تاریخ'
+							value={date}
+							onChange={(e) => overWrite({ value: { date: e }, scope: 'addItem.form' })}
+						/>
+						<PrimaryInput
+							label='توضیحات'
+							value={description}
+							onChange={(e) => {
+								overWrite({ value: { description: e }, scope: 'addItem.form' });
+							}}
+						/>
+						<PrimaryButton content='ثبت' onClick={() => addCostHandler(closeHanlder)} />
+					</PureForm>
 				</div>
 			)}
 		/>

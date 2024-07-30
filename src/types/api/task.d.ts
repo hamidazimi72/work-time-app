@@ -4,5 +4,6 @@ declare type API_task_item = {
 	id: number;
 	title: string;
 	user: string;
+	date: number;
 	isComplete: boolean;
 };

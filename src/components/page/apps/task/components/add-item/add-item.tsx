@@ -1,4 +1,4 @@
-import { PrimaryButton, PrimaryCheckbox, PrimaryInput, PrimaryModal, PureForm } from '@attom';
+import { PrimaryButton, PrimaryCheckbox, PrimaryDatePicker, PrimaryInput, PrimaryModal, PureForm } from '@attom';
 import { page_task } from '@context';
 import { useToast } from '@hooks';
 
@@ -13,7 +13,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 	const { state, overWrite, initState } = page_task.useContext();
 	const { addItem } = state;
 	const { form } = addItem;
-	const { isComplete, title } = form;
+	const { isComplete, title, date } = form;
 
 	const actions = page_task.useActions();
 
@@ -37,23 +37,27 @@ export const AddItem: React.FC<AddItemProps> = ({
 			boxProps={{ ...boxProps, className: `p-4 ${boxProps?.className || ''}` }}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4'>
-					<div className='flex flex-col gap-2'>
-						<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
-							<PrimaryInput
-								label='عنوان'
-								value={title}
-								onChange={(e) => overWrite({ value: { title: e }, scope: 'addItem.form' })}
-								focus
-							/>
-							<PrimaryCheckbox
-								label='انجام شده'
-								value={isComplete}
-								onChange={(value) => overWrite({ value: { isComplete: value }, scope: 'addItem.form' })}
-							/>
-							<PrimaryButton content='ثبت' onClick={() => addTaskHandler(closeHanlder)} />
-						</PureForm>
-					</div>
+				<div className='flex flex-col gap-8'>
+					<h3>افزودن وظیفه</h3>
+					<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
+						<PrimaryInput
+							label='عنوان'
+							value={title}
+							onChange={(e) => overWrite({ value: { title: e }, scope: 'addItem.form' })}
+							focus
+						/>
+						<PrimaryDatePicker
+							label='تاریخ'
+							value={date}
+							onChange={(e) => overWrite({ value: { date: e }, scope: 'addItem.form' })}
+						/>
+						<PrimaryCheckbox
+							label='انجام شده'
+							value={isComplete}
+							onChange={(value) => overWrite({ value: { isComplete: value }, scope: 'addItem.form' })}
+						/>
+						<PrimaryButton content='ثبت' onClick={() => addTaskHandler(closeHanlder)} />
+					</PureForm>
 				</div>
 			)}
 		/>

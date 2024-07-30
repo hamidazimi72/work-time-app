@@ -7,6 +7,8 @@ export type InitState = {
 		$fetchItems: API_task_item[];
 		filter: {
 			isComplete: { name: string; value: string };
+			fromDate: number | undefined;
+			toDate: number | undefined;
 		};
 	};
 	//____________________** add one item **____________________//
@@ -16,6 +18,7 @@ export type InitState = {
 		form: {
 			isComplete: boolean;
 			title: string;
+			date: number | undefined;
 		};
 	};
 	//____________________** edit one item **____________________//
@@ -25,6 +28,7 @@ export type InitState = {
 		form: {
 			isComplete: boolean;
 			title: string;
+			date: number | undefined;
 		};
 	};
 	//____________________** delete one item **____________________//
@@ -43,6 +47,8 @@ export const initState: InitState = {
 
 		filter: {
 			isComplete: { name: 'همه موارد', value: 'undefined' },
+			fromDate: undefined,
+			toDate: undefined,
 		},
 	},
 	//____________________** add one item **____________________//
@@ -54,6 +60,7 @@ export const initState: InitState = {
 		form: {
 			isComplete: false,
 			title: '',
+			date: undefined,
 		},
 	},
 	//____________________** edit one item **____________________//
@@ -65,6 +72,7 @@ export const initState: InitState = {
 		form: {
 			isComplete: false,
 			title: '',
+			date: undefined,
 		},
 	},
 	//____________________** delete one item **____________________//

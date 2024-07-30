@@ -18,7 +18,8 @@ axios.interceptors.response.use(
 const showLog = () => localStorage.getItem('log-status') === 'show';
 
 const defaultHeader = (method?: string) => ({
-	Token: localStorage.getItem('token') ? `${JSON.parse(localStorage.getItem('token') || '')}` : null,
+	// Token: localStorage.getItem('token') ? `${JSON.parse(localStorage.getItem('token') || '')}` : null,
+	Authorization: `Bearer ${localStorage.getItem('token') ? `${JSON.parse(localStorage.getItem('token') || '')}` : null}`,
 	'Accept-Language': localStorage.getItem('_language') || null,
 	'Content-Type': 'application/json',
 });

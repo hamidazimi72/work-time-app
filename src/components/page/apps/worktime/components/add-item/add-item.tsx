@@ -1,4 +1,4 @@
-import { PrimaryButton, PrimaryCheckbox, PrimaryDatePicker, PrimaryModal } from '@attom';
+import { PrimaryButton, PrimaryCheckbox, PrimaryDatePicker, PrimaryModal, PureForm } from '@attom';
 import { page_worktime } from '@context';
 import { useToast } from '@hooks';
 
@@ -42,9 +42,11 @@ export const AddItem: React.FC<AddItemProps> = ({
 			boxProps={boxProps}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4'>
-					<div className='flex flex-col gap-2'>
+				<div className='flex flex-col gap-8'>
+					<h3>افزودن ساعت کاری</h3>
+					<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
 						<PrimaryDatePicker
+							label='زمان شروع'
 							format='YYYY/MM/DD - HH:mm'
 							value={arrivalTime}
 							onChange={(e) => overWrite({ value: { arrivalTime: e }, scope: 'addItem.form' })}
@@ -52,6 +54,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 							timePicker
 						/>
 						<PrimaryDatePicker
+							label='زمان پایان'
 							format='YYYY/MM/DD - HH:mm'
 							value={departureTime}
 							onChange={(e) => overWrite({ value: { departureTime: e }, scope: 'addItem.form' })}
@@ -67,7 +70,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 						)}
 
 						<PrimaryButton content='ثبت' onClick={() => addTimeHandler(closeHanlder)} />
-					</div>
+					</PureForm>
 				</div>
 			)}
 		/>

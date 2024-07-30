@@ -16,8 +16,11 @@ export const useActions = () => {
 
 		const { fetchItems } = state;
 		const { filter } = fetchItems;
-		const { isComplete } = filter;
+		const { isComplete, fromDate, toDate } = filter;
 		const isCompleted = isComplete?.value == 'true' ? true : isComplete?.value == 'false' ? false : undefined;
+
+		const fromDate_formatted = new Date(fromDate || '').setHours(0, 0, 0, 0);
+		const toDate_formatted = new Date(toDate || '').setHours(23, 59, 59, 0);
 
 		type Res = Service_response<{ info: API_task_item[] }>;
 
@@ -39,7 +42,10 @@ export const useActions = () => {
 			overWrite({ scope: 'fetchItems', value: { $fetchItems: [] } });
 		};
 
-		api.$task_GET({ onOk, onFail, onStatus }, { query: { isComplete: isCompleted } });
+		api.$task_GET(
+			{ onOk, onFail, onStatus },
+			{ query: { isComplete: isCompleted, dateFrom: fromDate_formatted, dateTo: toDate_formatted } },
+		);
 	};
 
 	const addItem = (parameters?: Action_callbacks & {}) => {
@@ -51,7 +57,7 @@ export const useActions = () => {
 
 		const { addItem } = state;
 		const { form } = addItem;
-		const { isComplete, title } = form;
+		const { isComplete, title, date } = form;
 
 		type Res = Service_response<{ info: API_task_item }>;
 
@@ -70,7 +76,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB();
 		};
 
-		api.$task_POST({ onOk, onFail, onStatus }, { body: { isComplete, title } });
+		api.$task_POST({ onOk, onFail, onStatus }, { body: { isComplete, title, date } });
 	};
 
 	const editItem = (parameters?: Action_callbacks & { item: API_task_item | null }) => {
@@ -81,6 +87,7 @@ export const useActions = () => {
 		];
 
 		const id = parameters?.item?.id;
+		const date = parameters?.item?.date || undefined;
 		const title = parameters?.item?.title || '';
 		const isComplete = parameters?.item?.isComplete || false;
 
@@ -103,7 +110,7 @@ export const useActions = () => {
 
 		if (!id) return;
 
-		api.$task_PUT({ onFail, onOk, onStatus }, { body: { id, isComplete, title } });
+		api.$task_PUT({ onFail, onOk, onStatus }, { body: { id, isComplete, title, date } });
 	};
 
 	const deleteItem = (parameters?: Action_callbacks & {}) => {

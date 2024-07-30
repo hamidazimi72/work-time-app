@@ -8,7 +8,10 @@ export const useActions = () => {
 	//--------------------* Start Actions *--------------------//
 
 	const login = async (
-		parameters?: Action_callbacks & { data: { id: string; username: string; lastName: string; firstName: string } },
+		parameters?: Action_callbacks & {
+			data: { id: string; username: string; lastName: string; firstName: string };
+			token: string;
+		},
 	) => {
 		const data = parameters?.data;
 		if (!data || typeof data !== 'object') return;
@@ -19,7 +22,7 @@ export const useActions = () => {
 		overWrite({ scope: '', value: { ...updatedAccount } });
 
 		if (data?.username) {
-			LocalStorageAPI.setItem('token', data.username, 'json');
+			LocalStorageAPI.setItem('token', parameters?.token, 'json');
 			LocalStorageAPI.setItem('token-expired-time', Date.now() + 1000 * 60 * 60 * 24, 'json');
 		}
 	};
@@ -35,14 +38,14 @@ export const useActions = () => {
 		const tokenLS = LocalStorageAPI.getItem('token', 'json');
 		// const tokenExpiredTimeLS = LocalStorageAPI.getItem('token-expired-time', 'json');
 
-		const validTokenAndAccount = tokenLS && accountLS && tokenLS === accountLS?.username;
+		// const validTokenAndAccount = tokenLS && accountLS && tokenLS === accountLS?.username;
 		// const validTokenExpiration = validTokenAndAccount
 		// 	? tokenExpiredTimeLS && tokenExpiredTimeLS <= Date.now()
 		// 		? false
 		// 		: true
 		// 	: false;
 
-		if (validTokenAndAccount) setState({ ...accountLS });
+		if (tokenLS) setState({ ...accountLS });
 		else logout();
 	};
 	//--------------------* End Action  *--------------------//

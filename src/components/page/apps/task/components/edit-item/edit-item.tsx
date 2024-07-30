@@ -1,4 +1,4 @@
-import { PrimaryButton, PrimaryInput, PrimaryModal, PureForm } from '@attom';
+import { PrimaryButton, PrimaryDatePicker, PrimaryInput, PrimaryModal, PureForm } from '@attom';
 import { page_task } from '@context';
 import { useDidMount, useToast } from '@hooks';
 
@@ -13,7 +13,7 @@ export const EditItem: React.FC<EditItemProps> = ({
 	const { state, overWrite, initState } = page_task.useContext();
 	const { editItem } = state;
 	const { form, selectedItem } = editItem;
-	const { title } = form;
+	const { title, date } = form;
 
 	const actions = page_task.useActions();
 
@@ -29,7 +29,7 @@ export const EditItem: React.FC<EditItemProps> = ({
 				closeHanlder();
 				showToast({ message: 'وظیفه با موفقیت ویرایش گردید!', showIcon: true, type: 'success' });
 			},
-			item: { id: item?.id || 0, title: title, isComplete: item?.isComplete || false, user: item?.user || '' },
+			item: { id: item?.id || 0, title: title, date: date || 0, isComplete: item?.isComplete || false, user: item?.user || '' },
 		});
 	};
 
@@ -39,6 +39,7 @@ export const EditItem: React.FC<EditItemProps> = ({
 		overWrite({
 			value: {
 				id: selectedItem?.id,
+				date: selectedItem?.date,
 				title: selectedItem?.title,
 				isComplete: selectedItem?.date,
 			},
@@ -51,18 +52,22 @@ export const EditItem: React.FC<EditItemProps> = ({
 			boxProps={{ ...boxProps, className: `p-4 ${boxProps?.className || ''}` }}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4'>
-					<div className='flex flex-col gap-2'>
-						<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
-							<PrimaryInput
-								label='عنوان'
-								value={title}
-								onChange={(e) => overWrite({ value: { title: e }, scope: 'editItem.form' })}
-								focus
-							/>
-							<PrimaryButton content='ثبت' onClick={() => editTaskHandler(selectedItem, closeHanlder)} />
-						</PureForm>
-					</div>
+				<div className='flex flex-col gap-8'>
+					<h3>ویرایش وظیفه</h3>
+					<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
+						<PrimaryInput
+							label='عنوان'
+							value={title}
+							onChange={(e) => overWrite({ value: { title: e }, scope: 'editItem.form' })}
+							focus
+						/>
+						<PrimaryDatePicker
+							label='تاریخ'
+							value={date}
+							onChange={(e) => overWrite({ value: { date: e }, scope: 'editItem.form' })}
+						/>
+						<PrimaryButton content='ویرایش' onClick={() => editTaskHandler(selectedItem, closeHanlder)} />
+					</PureForm>
 				</div>
 			)}
 		/>

@@ -1,6 +1,7 @@
-import { Block, PrimaryButton, PrimaryCheckbox, PrimarySelect, PureForm, SVGIcon } from '@attom';
+import { Block, PrimaryButton, PrimaryCheckbox, PrimaryDatePicker, PrimarySelect, PureForm, SVGIcon } from '@attom';
 import { page_task } from '@context';
 import { useDidMount, useToast } from '@hooks';
+import { DateAPI } from '@utils';
 
 export type FetchItemsProps = {
 	boxProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -13,7 +14,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 	const { state, overWrite } = page_task.useContext();
 	const { fetchItems } = state;
 	const { filter } = fetchItems;
-	const { isComplete } = filter;
+	const { isComplete, fromDate, toDate } = filter;
 
 	const actions = page_task.useActions();
 
@@ -50,25 +51,36 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 		overWrite({ value: { selectedItem: item }, scope: 'deleteItem' });
 	};
 
-	useDidMount(() => {
-		fetchAllItems();
-	}, [isComplete]);
+	// useDidMount(() => {
+	// 	fetchAllItems();
+	// }, [isComplete]);
 
 	return (
 		<Block boxProps={boxProps}>
 			<div className='flex flex-col gap-4'>
-				<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
+				<PureForm boxProps={{ className: 'grid grid-cols-2 gap-2' }}>
+					<PrimaryDatePicker
+						label='از تاریخ'
+						value={fromDate}
+						onChange={(e) => overWrite({ value: { fromDate: e }, scope: 'fetchItems.filter' })}
+					/>
+					<PrimaryDatePicker
+						label='تا تاریخ'
+						value={toDate}
+						onChange={(e) => overWrite({ value: { toDate: e }, scope: 'fetchItems.filter' })}
+					/>
 					<PrimarySelect
+						boxProps={{ className: 'col-span-2' }}
 						label='وضعیت'
 						item={isComplete}
 						options={statusList}
 						onChange={(item) => overWrite({ value: { isComplete: item }, scope: 'fetchItems.filter' })}
 					/>
 
-					{/* <PrimaryButton content='جستجو' onClick={fetchAllItems} /> */}
+					<PrimaryButton boxProps={{ className: 'col-span-2' }} content='جستجو' onClick={fetchAllItems} />
 				</PureForm>
 
-				<PrimaryButton content='وظیفه جدید' onClick={renderAdd} />
+				{/* <PrimaryButton content='وظیفه جدید' onClick={renderAdd} /> */}
 				<div className='flex flex-col gap-2'>
 					{fetchItems?.$fetchItems?.map((item, i) => {
 						const isCompleted = item?.isComplete || false;
@@ -77,9 +89,16 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 
 						return (
 							<div key={i} className={`flex justify-between items-center gap-4 p-4 rounded-lg shadow-sm text-sm ${bgColor}`}>
-								<div className='flex items-center gap-2'>
+								<div className='flex items-baseline gap-4'>
 									<PrimaryCheckbox value={item?.isComplete} onChange={() => changeStatusHandler(item)} />
-									<span>{item?.title}</span>
+									<div className='flex flex-col gap-1'>
+										<span>{item?.title}</span>
+										<span className='text-xs font-light'>
+											{DateAPI.gregorianToJalaali(new Date(item?.date))?.dayName}
+											{` - `}
+											{DateAPI.gregorianToJalaali(new Date(item?.date))?.standardDate}
+										</span>
+									</div>
 								</div>
 								<div className='flex items-center gap-3'>
 									<SVGIcon
@@ -100,6 +119,13 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 					})}
 				</div>
 			</div>
+			<PrimaryButton
+				boxProps={{ className: 'fixed bottom-4 right-4' }}
+				elProps={{ className: '!w-[52px] !h-[52px] shadow' }}
+				rounded='rounded-full'
+				icon={() => <SVGIcon icon='plus_regular_rounded' />}
+				onClick={renderAdd}
+			/>
 		</Block>
 	);
 };

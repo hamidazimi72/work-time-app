@@ -17,7 +17,7 @@
 	animation: fade-in 0.2s ease 1;
 
 	& > * {
-		animation: enter-top 0.4s ease 1;
+		animation: enter-bottom 0.4s ease 1;
 	}
 }
 
@@ -40,7 +40,7 @@
 	animation: fade-out 0.4s ease 1;
 
 	& > * {
-		animation: leave-bottom 0.4s ease 1;
+		animation: leave-top 0.4s ease 1;
 	}
 }
 
@@ -97,9 +97,19 @@
 	}
 }
 
+// Enter
 @keyframes enter-top {
 	0% {
 		transform: translateY(-50vh);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes enter-bottom {
+	0% {
+		transform: translateY(50vh);
 	}
 	100% {
 		transform: translateY(0);
@@ -112,6 +122,16 @@
 	}
 	100% {
 		transform: translateX(0);
+	}
+}
+
+// Leave
+@keyframes leave-top {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-50vh);
 	}
 }
 

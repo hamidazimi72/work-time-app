@@ -76,12 +76,14 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 	return (
 		<Block boxProps={boxProps}>
 			{label ? (
-				<div {...labelProps} className={`${labelProps?.className || ''} text-[13px] min-h-[30px] font-[500]`}>
+				<div {...labelProps} className={`${labelProps?.className || ''} text-sm mb-1`}>
 					{label || ''}
 				</div>
 			) : null}
 			<DatePicker
-				className={mobileMode ? `rmdp-mobile` : ``}
+				inputClass='w-full bg-background-primary disabled:bg-background-tertiary text-text-secondary placeholder:placeholder-cancel border border-text-tertiary-30 rounded-lg p-2 min-h-[48px]'
+				containerClassName='!block'
+				className={`${mobileMode ? `rmdp-mobile` : ``}`}
 				format={format}
 				ref={rf}
 				calendar={persian}
@@ -91,7 +93,9 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 				disabled={disabled}
 				plugins={plugins}
 				calendarPosition='bottom-right'
-			/>
+			>
+				<input className='' />
+			</DatePicker>
 		</Block>
 	);
 };

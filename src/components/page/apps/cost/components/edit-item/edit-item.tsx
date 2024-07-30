@@ -57,35 +57,38 @@ export const EditItem: React.FC<EditItemProps> = ({
 			boxProps={boxProps}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4'>
-					<div className='flex flex-col gap-2'>
-						<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
-							<PrimaryInput
-								label='عنوان'
-								value={category}
-								onChange={(e) => overWrite({ value: { category: e }, scope: 'editItem.form' })}
-							/>
-							<PrimaryInput
-								label='مبلغ'
-								placeholder='مبلغ (تومان)'
-								value={price}
-								onChange={(e) => {
-									overWrite({ value: { price: e }, scope: 'editItem.form' });
-								}}
-								priceMode
-							/>
-
-							<PrimaryDatePicker value={date} onChange={(e) => overWrite({ value: { date: e }, scope: 'editItem.form' })} />
-							<PrimaryInput
-								label='توضیحات'
-								value={description}
-								onChange={(e) => {
-									overWrite({ value: { description: e }, scope: 'editItem.form' });
-								}}
-							/>
-							<PrimaryButton content='ثبت' onClick={() => addTimeHandler(closeHanlder)} />
-						</PureForm>
-					</div>
+				<div className='flex flex-col gap-8'>
+					<h3>ویرایش هزینه</h3>
+					<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
+						<PrimaryInput
+							label='عنوان'
+							value={category}
+							onChange={(e) => overWrite({ value: { category: e }, scope: 'editItem.form' })}
+							focus
+						/>
+						<PrimaryInput
+							label='مبلغ'
+							placeholder='مبلغ (تومان)'
+							value={price}
+							onChange={(e) => {
+								overWrite({ value: { price: e }, scope: 'editItem.form' });
+							}}
+							priceMode
+						/>
+						<PrimaryDatePicker
+							label='تاریخ'
+							value={date}
+							onChange={(e) => overWrite({ value: { date: e }, scope: 'editItem.form' })}
+						/>
+						<PrimaryInput
+							label='توضیحات'
+							value={description}
+							onChange={(e) => {
+								overWrite({ value: { description: e }, scope: 'editItem.form' });
+							}}
+						/>
+						<PrimaryButton content='ویرایش' onClick={() => addTimeHandler(closeHanlder)} />
+					</PureForm>
 				</div>
 			)}
 		/>

@@ -39,16 +39,21 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 	return (
 		<Block boxProps={boxProps}>
 			<div className='flex flex-col gap-4'>
-				<PureForm>
+				<PureForm boxProps={{ className: 'grid grid-cols-2 gap-x-2 gap-y-2' }}>
 					<PrimaryDatePicker
+						label='از تاریخ'
 						value={dateFrom}
 						onChange={(e) => overWrite({ value: { dateFrom: e }, scope: 'fetchItems.filter' })}
 					/>
-					<PrimaryDatePicker value={dateTo} onChange={(e) => overWrite({ value: { dateTo: e }, scope: 'fetchItems.filter' })} />
+					<PrimaryDatePicker
+						label='تا تاریخ'
+						value={dateTo}
+						onChange={(e) => overWrite({ value: { dateTo: e }, scope: 'fetchItems.filter' })}
+					/>
 
-					<PrimaryButton content='جستجو' onClick={fetchAllItems} />
+					<PrimaryButton boxProps={{ className: 'col-span-2' }} content='جستجو' onClick={fetchAllItems} />
 				</PureForm>
-				<PrimaryButton content='هزینه جدید' onClick={renderAdd} />
+				{/* <PrimaryButton content='هزینه جدید' onClick={renderAdd} /> */}
 				<div className='flex flex-col gap-2'>
 					{fetchItems?.$fetchItems?.map((item, i) => {
 						return (
@@ -93,6 +98,13 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 					<small>تومان</small>
 				</div>
 			</div>
+			<PrimaryButton
+				boxProps={{ className: 'fixed bottom-4 right-4' }}
+				elProps={{ className: '!w-[52px] !h-[52px] shadow' }}
+				rounded='rounded-full'
+				icon={() => <SVGIcon icon='plus_regular_rounded' />}
+				onClick={renderAdd}
+			/>
 		</Block>
 	);
 };

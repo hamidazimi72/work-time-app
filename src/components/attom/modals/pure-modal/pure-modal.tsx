@@ -87,7 +87,7 @@ export const PureModal: React.FC<PureModalProps> = ({
 
 	return (
 		<div
-			className={`${backdropBgColor} ${enterAnimation} fixed z-[999] top-0 bottom-0 right-0 left-0 flex flex-col items-center justify-center overflow-hidden backdrop-blur-md`}
+			className={`${backdropBgColor} ${enterAnimation} fixed z-[999] top-0 bottom-0 right-0 left-0 py-10 flex flex-col items-center justify-end overflow-hidden backdrop-blur-md`}
 			onClick={backdropCloseHandler}
 		>
 			<div

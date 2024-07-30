@@ -28,7 +28,8 @@ export const useActions = () => {
 			if (res?.statusCode === 200) {
 				if (typeof onOkCB === 'function') onOkCB(res);
 				const data = res?.body?.info || null;
-				universalAccountAction.login({ data });
+				const token = res?.body?.token || null;
+				universalAccountAction.login({ data, token });
 			}
 		};
 

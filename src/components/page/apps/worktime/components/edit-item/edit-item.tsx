@@ -1,4 +1,4 @@
-import { PrimaryButton, PrimaryCheckbox, PrimaryDatePicker, PrimaryModal } from '@attom';
+import { PrimaryButton, PrimaryCheckbox, PrimaryDatePicker, PrimaryModal, PureForm } from '@attom';
 import { page_worktime } from '@context';
 import { useDidMount, useToast } from '@hooks';
 
@@ -56,8 +56,9 @@ export const EditItem: React.FC<EditItemProps> = ({
 			boxProps={boxProps}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4'>
-					<div className='flex flex-col gap-2'>
+				<div className='flex flex-col gap-8'>
+					<h3>ویرایش ساعت کاری</h3>
+					<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
 						<PrimaryDatePicker
 							format='YYYY/MM/DD - HH:mm'
 							value={arrivalTime}
@@ -80,8 +81,8 @@ export const EditItem: React.FC<EditItemProps> = ({
 							/>
 						)}
 
-						<PrimaryButton content='ثبت' onClick={() => editTimeHandler(closeHanlder)} />
-					</div>
+						<PrimaryButton content='ویرایش' onClick={() => editTimeHandler(closeHanlder)} />
+					</PureForm>
 				</div>
 			)}
 		/>

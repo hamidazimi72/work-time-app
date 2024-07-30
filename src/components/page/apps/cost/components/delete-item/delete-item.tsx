@@ -36,8 +36,9 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 			boxProps={boxProps}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4 mt-8'>
-					<h2>
+				<div className='flex flex-col gap-4'>
+					<h3 className='mb-4'>حذف هزینه</h3>
+					<h2 className='text-center'>
 						آیا از حذف هزینه <span className='text-primary-1'>" {selectedItem?.category} "</span> اطمینان دارید؟
 					</h2>
 					<PrimaryButton content='ثبت' onClick={() => deleteCostHandler(closeHanlder)} />

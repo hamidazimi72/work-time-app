@@ -37,8 +37,9 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 			boxProps={{ ...boxProps, className: `p-4 ${boxProps?.className || ''}` }}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4 mt-8'>
-					<h2>
+				<div className='flex flex-col gap-4'>
+					<h3 className='mb-4'>حذف روز کاری</h3>
+					<h2 className='text-center'>
 						آیا از حذف وظیفه <span className='text-primary-1'>" {selectedItem?.title} "</span> اطمینان دارید؟
 					</h2>
 					<PrimaryButton content='حذف' onClick={() => deleteTimeHandler(closeHanlder)} />

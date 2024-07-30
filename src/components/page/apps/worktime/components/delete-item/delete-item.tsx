@@ -37,15 +37,16 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 			boxProps={boxProps}
 			onClose={onClose}
 			render={(closeHanlder) => (
-				<div className='flex flex-col gap-4 mt-8'>
-					<h2>
+				<div className='flex flex-col gap-4'>
+					<h3 className='mb-4'>حذف روز کاری</h3>
+					<h2 className='text-center'>
 						آیا از حذف روز کاری{' '}
 						<span className='text-primary-1'>
-							" {DateAPI?.gregorianToJalaali(selectedItem?.arrivalTime?.toString() || '')?.standardDate} "
+							" {DateAPI?.gregorianToJalaali(new Date(selectedItem?.arrivalTime || ''))?.standardDate} "
 						</span>{' '}
 						اطمینان دارید؟
 					</h2>
-					<PrimaryButton content='ثبت' onClick={() => deleteTimeHandler(closeHanlder)} />
+					<PrimaryButton content='حذف' onClick={() => deleteTimeHandler(closeHanlder)} />
 				</div>
 			)}
 		/>

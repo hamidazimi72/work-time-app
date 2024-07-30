@@ -29,11 +29,11 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 		overWrite({ value: { show: true }, scope: 'addItem' });
 	};
 
-	const renderEdit = (item) => {
+	const renderEdit = (item: API_worktimes_item) => {
 		overWrite({ value: { selectedItem: item }, scope: 'editItem' });
 	};
 
-	const renderDelete = (item) => {
+	const renderDelete = (item: API_worktimes_item) => {
 		overWrite({ value: { selectedItem: item }, scope: 'deleteItem' });
 	};
 
@@ -42,19 +42,21 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 	return (
 		<Block boxProps={boxProps}>
 			<div className='flex flex-col gap-4'>
-				<PureForm>
+				<PureForm boxProps={{ className: 'grid grid-cols-2 gap-2' }}>
 					<PrimaryDatePicker
+						label='از تاریخ'
 						value={arrivalTimeFrom}
 						onChange={(e) => overWrite({ value: { arrivalTimeFrom: e }, scope: 'fetchItems.filter' })}
 					/>
 					<PrimaryDatePicker
+						label='تا تاریخ'
 						value={arrivalTimeTo}
 						onChange={(e) => overWrite({ value: { arrivalTimeTo: e }, scope: 'fetchItems.filter' })}
 					/>
 
-					<PrimaryButton content='جستجو' onClick={fetchAllItems} />
+					<PrimaryButton boxProps={{ className: 'col-span-2' }} content='جستجو' onClick={fetchAllItems} />
 				</PureForm>
-				<PrimaryButton content='ثبت' onClick={renderAdd} />
+				{/* <PrimaryButton content='ثبت' onClick={renderAdd} /> */}
 				<div className='flex flex-col gap-2'>
 					{fetchItems?.$fetchItems?.map((item, i) => {
 						const isVacation = item?.isVacation || false;
@@ -107,6 +109,13 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 				</div>
 				<div>روز کاری: {fetchItems?.$fetchItems.filter((item) => item?.departureTime)?.length}</div>
 			</div>
+			<PrimaryButton
+				boxProps={{ className: 'fixed bottom-4 right-4' }}
+				elProps={{ className: '!w-[52px] !h-[52px] shadow' }}
+				rounded='rounded-full'
+				icon={() => <SVGIcon icon='plus_regular_rounded' />}
+				onClick={renderAdd}
+			/>
 		</Block>
 	);
 };
