@@ -68,6 +68,9 @@ export const useActions = () => {
 		const { form } = addItem;
 		const { arrivalTime, departureTime, isVacation } = form;
 
+		const arrivalTime_formatted = new Date(arrivalTime || '').setSeconds(0, 0);
+		const departureTime_formatted = new Date(departureTime || '').setSeconds(0, 0);
+
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
 			overWrite({ scope: 'addItem', value: { _addItem: status } });
@@ -85,7 +88,8 @@ export const useActions = () => {
 
 		api.$worktimes_POST(
 			{ onStatus, onOk, onFail },
-			{ body: { arrivalTime: arrivalTime ? +arrivalTime : 0, departureTime: departureTime ? +departureTime : 0, isVacation } },
+			{ body: { arrivalTime: arrivalTime_formatted, departureTime: departureTime_formatted, isVacation } },
+			// { body: { arrivalTime: arrivalTime ? +arrivalTime : 0, departureTime: departureTime ? +departureTime : 0, isVacation } },
 		);
 	};
 
