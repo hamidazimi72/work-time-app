@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({
 
 	return (
 		<Block boxProps={{ ...boxProps, className: `${boxProps?.className || ''}` }}>
-			<footer className='fixed bottom-0 max-w-screen-md w-full grid grid-cols-3 gap-2 rounded-t-2xl h-16 shadow-[0px_-4px_4px_0px_rgba(0,0,0,0.03)] bg-white z-50 overflow-hidden'>
+			<footer className='fixed bottom-0 max-w-screen-md w-full grid grid-cols-3 gap-x-2 rounded-t-2xl h-16 shadow-[0px_-4px_4px_0px_rgba(0,0,0,0.03)] bg-white z-50 overflow-hidden'>
 				<Link
 					className={`col-span-1 flex flex-col justify-center items-center gap-1 text-sky-400 ${pathname.includes('worktime') ? `bg-sky-50` : ``}`}
 					href='/apps/worktime'
