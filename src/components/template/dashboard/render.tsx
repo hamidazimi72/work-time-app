@@ -1,6 +1,6 @@
 import { Block } from '@attom';
 import { template_dashboard } from '@context';
-import { Header } from './components';
+import { Footer, Header } from './components';
 
 type RenderProps = {
 	children?: any;
@@ -20,6 +20,7 @@ export const Render: React.FC<RenderProps> = ({
 		<Block boxProps={{ className: `relative mx-auto shadow max-w-screen-md ${boxProps?.className || ''}` }}>
 			<Header />
 			<div className='p-4 pt-20 min-h-screen'>{children}</div>
+			<Footer />
 		</Block>
 	);
 };

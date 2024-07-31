@@ -38,8 +38,8 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 
 	return (
 		<Block boxProps={boxProps}>
-			<div className='flex flex-col gap-4'>
-				<PureForm boxProps={{ className: 'grid grid-cols-2 gap-x-2 gap-y-2' }}>
+			<div className='pb-24'>
+				<PureForm boxProps={{ className: 'grid grid-cols-2 gap-x-2 gap-y-2 mb-4' }}>
 					<PrimaryDatePicker
 						label='از تاریخ'
 						value={dateFrom}
@@ -54,6 +54,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 					<PrimaryButton boxProps={{ className: 'col-span-2' }} content='جستجو' onClick={fetchAllItems} />
 				</PureForm>
 				{/* <PrimaryButton content='هزینه جدید' onClick={renderAdd} /> */}
+
 				<div className='flex flex-col gap-2'>
 					{fetchItems?.$fetchItems?.map((item, i) => {
 						return (
@@ -92,19 +93,19 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 						);
 					})}
 				</div>
-				<div className='flex items-center gap-1'>
-					مجموع: {` `}
-					{MathAPI.seperate(totalCosts)}
-					<small>تومان</small>
-				</div>
 			</div>
 			<PrimaryButton
-				boxProps={{ className: 'fixed bottom-4 right-4' }}
-				elProps={{ className: '!w-[52px] !h-[52px] shadow' }}
+				boxProps={{ className: 'fixed bottom-20 right-4 opacity-75' }}
+				elProps={{ className: '!w-12 !h-12 shadow' }}
 				rounded='rounded-full'
 				icon={() => <SVGIcon icon='plus_regular_rounded' />}
 				onClick={renderAdd}
 			/>
+			<div className='h-12 bg-sky-200 rounded-3xl flex items-center gap-1 fixed bottom-20 left-4 px-4 text-sm opacity-60 hover:opacity-100'>
+				<small>مجموع هزینه‌ها:</small> {` `}
+				{MathAPI.seperate(totalCosts)}
+				<small>تومان</small>
+			</div>
 		</Block>
 	);
 };

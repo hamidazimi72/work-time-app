@@ -56,7 +56,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 		<Block boxProps={{ ...boxProps, className: `${boxProps?.className || ''} ${labelSpace ? 'pt-[30px]' : ''}` }}>
 			<button
 				{...elProps}
-				className={`min-h-[50px] px-4 flex items-center justify-center relative ${bgColorClass} ${textColor} ${inlineBlock ? '' : 'w-full'} ${
+				className={`min-h-[48px] px-4 flex items-center justify-center relative ${bgColorClass} ${textColor} ${inlineBlock ? '' : 'w-full'} ${
 					disabled ? `${grayscaleDisabled ? 'grayscale-[50%] opacity-50 sepia-[50%] ' : 'opacity-70'}` : ''
 				}
 			  ${typeof rounded === 'boolean' ? 'rounded-[24px]' : rounded} outline-none border-none text-center cursor-pointer text-[14px]
