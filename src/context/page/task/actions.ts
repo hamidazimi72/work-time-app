@@ -1,6 +1,7 @@
 import { api } from '@services';
 
 import { useContext } from '.';
+import { DateAPI } from '@utils';
 
 export const useActions = () => {
 	const { state, overWrite } = useContext();
@@ -33,8 +34,16 @@ export const useActions = () => {
 			if (typeof onOkCB === 'function') onOkCB(res);
 
 			const $fetchItems = res?.body?.info || [];
+			const formattedItems = $fetchItems?.reduce((result, current) => {
+				let date: string = DateAPI.gregorianToJalaali(new Date(current?.date))?.standardDate || '';
+				if (!result[date]) result[date] = [];
 
-			overWrite({ scope: 'fetchItems', value: { $fetchItems } });
+				result[date].push({ ...current });
+
+				return { ...result };
+			}, {});
+
+			overWrite({ scope: 'fetchItems', value: { $fetchItems, formattedItems } });
 		};
 
 		const onFail = async (res?: Res) => {

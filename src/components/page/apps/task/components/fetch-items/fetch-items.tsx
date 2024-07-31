@@ -13,7 +13,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 }) => {
 	const { state, overWrite } = page_task.useContext();
 	const { fetchItems } = state;
-	const { filter } = fetchItems;
+	const { filter, $fetchItems, formattedItems } = fetchItems;
 	const { isComplete, fromDate, toDate } = filter;
 
 	const actions = page_task.useActions();
@@ -51,9 +51,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 		overWrite({ value: { selectedItem: item }, scope: 'deleteItem' });
 	};
 
-	// useDidMount(() => {
-	// 	fetchAllItems();
-	// }, [isComplete]);
+	useDidMount(fetchAllItems);
 
 	return (
 		<Block boxProps={boxProps}>
@@ -81,39 +79,54 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 				</PureForm>
 
 				{/* <PrimaryButton content='وظیفه جدید' onClick={renderAdd} /> */}
-				<div className='flex flex-col gap-2'>
-					{fetchItems?.$fetchItems?.map((item, i) => {
-						const isCompleted = item?.isComplete || false;
-
-						const bgColor = (isCompleted && `bg-green-50`) || `bg-red-50`;
+				<div className='flex flex-col gap-4'>
+					{Object?.keys(formattedItems)?.map((item, i) => {
+						const subItem = formattedItems[item];
+						const dayOfWeek = DateAPI.gregorianToJalaali(new Date(subItem[0]?.date || ''))?.dayName || '';
 
 						return (
-							<div key={i} className={`flex justify-between items-center gap-4 p-4 rounded-lg shadow-sm text-sm ${bgColor}`}>
-								<div className='flex items-baseline gap-4'>
-									<PrimaryCheckbox value={item?.isComplete} onChange={() => changeStatusHandler(item)} />
-									<div className='flex flex-col gap-1'>
-										<span>{item?.title}</span>
-										<span className='text-xs font-light'>
-											{DateAPI.gregorianToJalaali(new Date(item?.date))?.dayName}
-											{` - `}
-											{DateAPI.gregorianToJalaali(new Date(item?.date))?.standardDate}
-										</span>
-									</div>
-								</div>
-								<div className='flex items-center gap-3'>
-									<SVGIcon
-										width='w-4'
-										icon='edit_regular_rounded'
-										textColor='text-cancel'
-										boxProps={{ onClick: () => renderEdit(item) }}
-									/>
-									<SVGIcon
-										width='w-4'
-										icon='trash_regular_rounded'
-										textColor='text-cancel'
-										boxProps={{ onClick: () => renderDelete(item) }}
-									/>
-								</div>
+							<div key={i} className='flex flex-col gap-2'>
+								<span className='text-xs font-light'>
+									{item} ({dayOfWeek})
+								</span>
+								{subItem?.map((subItem, j) => {
+									const isCompleted = subItem?.isComplete || false;
+
+									const bgColor = (isCompleted && `bg-green-50`) || `bg-red-50`;
+
+									return (
+										<div
+											key={j}
+											className={`flex justify-between items-center gap-4 p-4 rounded-lg shadow-sm text-sm ${bgColor}`}
+										>
+											<div className='flex items-baseline gap-4'>
+												<PrimaryCheckbox value={subItem?.isComplete} onChange={() => changeStatusHandler(subItem)} />
+												<div className='flex flex-col gap-1'>
+													<span>{subItem?.title}</span>
+													{/* <span className='text-xs font-light'>
+														{DateAPI.gregorianToJalaali(new Date(subItem?.date))?.dayName}
+														{` - `}
+														{DateAPI.gregorianToJalaali(new Date(subItem?.date))?.standardDate}
+													</span> */}
+												</div>
+											</div>
+											<div className='flex items-center gap-3'>
+												<SVGIcon
+													width='w-4'
+													icon='edit_regular_rounded'
+													textColor='text-cancel'
+													boxProps={{ onClick: () => renderEdit(subItem) }}
+												/>
+												<SVGIcon
+													width='w-4'
+													icon='trash_regular_rounded'
+													textColor='text-cancel'
+													boxProps={{ onClick: () => renderDelete(subItem) }}
+												/>
+											</div>
+										</div>
+									);
+								})}
 							</div>
 						);
 					})}

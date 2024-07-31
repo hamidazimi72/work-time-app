@@ -64,6 +64,16 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 
 						const bgColor = (isVacation && `bg-indigo-50`) || (isCompleted && `bg-green-50`) || `bg-yellow-50`;
 
+						let totalTime_item: number = 0;
+						let totalHours_item: number = 0;
+						let totalMinutes_item: number = 0;
+
+						if (isCompleted) {
+							totalTime_item = item?.departureTime - item?.arrivalTime;
+							totalHours_item = Math.floor(totalTime_item / 1000 / 60 / 60) || 0;
+							totalMinutes_item = new Date(totalTime_item).getUTCMinutes() || 0;
+						}
+
 						return (
 							<div key={i} className={`flex flex-col gap-4 p-4 rounded-lg shadow-sm text-sm ${bgColor}`}>
 								<div className='flex justify-between items-center gap-2'>
@@ -94,11 +104,17 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 									</span>
 									<span className='flex-1'>
 										زمان خروج:{' '}
-										{!isVacation || !item?.departureTime
+										{item?.departureTime && !isVacation
 											? DateAPI.gregorianToJalaali(new Date(item?.departureTime))?.standardTime.slice(0, 5)
 											: '-'}
 									</span>
 								</div>
+								{isCompleted ? (
+									<div className='text-[12px] font-light'>
+										{totalHours_item > 0 ? `${totalHours_item} ساعت` : null}
+										{totalMinutes_item > 0 ? ` ${totalMinutes_item} دقیقه` : null}
+									</div>
+								) : null}
 							</div>
 						);
 					})}
@@ -107,7 +123,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 					مجموع: {` `}
 					{totalHours >= 10 ? totalHours : `0${totalHours}`}:{totalMinutes >= 10 ? totalMinutes : `0${totalMinutes}`}
 				</div>
-				<div>روز کاری: {fetchItems?.$fetchItems.filter((item) => item?.departureTime)?.length}</div>
+				<div className='mb-24'>روز کاری: {fetchItems?.$fetchItems.filter((item) => item?.departureTime)?.length}</div>
 			</div>
 			<PrimaryButton
 				boxProps={{ className: 'fixed bottom-4 right-4' }}

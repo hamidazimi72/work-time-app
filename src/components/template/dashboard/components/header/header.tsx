@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
 
 	return (
 		<Block boxProps={{ ...boxProps, className: `${boxProps?.className || ''}` }}>
-			<header className='fixed top-0 max-w-screen-md w-full flex justify-between items-center rounded-b-lg h-16 p-4 shadow bg-[#ffffffc0] backdrop-blur-md z-50'>
+			<header className='fixed top-0 max-w-screen-md w-full flex justify-between items-center rounded-b-2xl h-16 p-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.03)] bg-[#ffffffc0] backdrop-blur-md z-50'>
 				<span>{username}</span>
 				<span className='text-danger text-sm' onClick={exitHandler}>
 					خروج
