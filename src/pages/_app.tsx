@@ -35,7 +35,7 @@ const LayoutContainer = ({ children }) => {
 		setPlatform();
 		checkAndSetAccount();
 		// sw register
-		ServiceWorker.register();
+		// ServiceWorker.register();
 	});
 
 	useDidMount(() => {
