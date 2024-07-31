@@ -1,4 +1,15 @@
+import { DateObject } from 'react-multi-date-picker';
+import persian from 'react-date-object/calendars/persian';
+import persian_fa from 'react-date-object/locales/persian_fa';
+
+import { Convert, DateAPI } from '@utils';
+
 import { createContext } from '../../create-context';
+
+let date = new DateObject({ calendar: persian, locale: persian_fa });
+
+let dateFrom_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfMonth().format()))?.timeStamp);
+let dateTo_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfMonth().format()))?.timeStamp);
 
 export type InitState = {
 	//____________________** fetch All items **____________________//
@@ -55,8 +66,8 @@ export const initState: InitState = {
 		totalCosts: 0,
 
 		filter: {
-			dateFrom: undefined,
-			dateTo: undefined,
+			dateFrom: dateFrom_timeStamp,
+			dateTo: dateTo_timeStamp,
 			dateSort: 'asc',
 		},
 	},

@@ -1,10 +1,21 @@
+import { DateObject } from 'react-multi-date-picker';
+import persian from 'react-date-object/calendars/persian';
+import persian_fa from 'react-date-object/locales/persian_fa';
+
 import { createContext } from '../../create-context';
+import { Convert, DateAPI } from '@utils';
+
+let date = new DateObject({ calendar: persian, locale: persian_fa });
+
+let fromDate_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfWeek().format()))?.timeStamp);
+let toDate_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfWeek().format()))?.timeStamp);
 
 export type InitState = {
 	//____________________** fetch All items **____________________//
 	fetchItems: {
 		_fetchItems: Service_status;
 		$fetchItems: API_task_item[];
+		formattedItems: { [key: string]: API_task_item[] };
 		filter: {
 			isComplete: { name: string; value: string };
 			fromDate: number | undefined;
@@ -44,11 +55,12 @@ export const initState: InitState = {
 	fetchItems: {
 		_fetchItems: 'init',
 		$fetchItems: [],
+		formattedItems: {},
 
 		filter: {
 			isComplete: { name: 'همه موارد', value: 'undefined' },
-			fromDate: undefined,
-			toDate: undefined,
+			fromDate: fromDate_timeStamp,
+			toDate: toDate_timeStamp,
 		},
 	},
 	//____________________** add one item **____________________//
