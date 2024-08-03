@@ -1,5 +1,6 @@
 import { page_login } from '@context';
 import Login from '@page/login';
+import { SignTemplate } from '@template';
 
 const NextPage = () => {
 	return <Login />;
@@ -8,5 +9,9 @@ const NextPage = () => {
 export default NextPage;
 
 NextPage.getLayout = function getLayout(page) {
-	return <page_login.Provider>{page}</page_login.Provider>;
+	return (
+		<SignTemplate>
+			<page_login.Provider>{page}</page_login.Provider>
+		</SignTemplate>
+	);
 };

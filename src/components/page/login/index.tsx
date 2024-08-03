@@ -1,7 +1,8 @@
+import Link from 'next/link';
+
 import { Block, PrimaryButton, PrimaryInput, PureForm } from '@attom';
 import { page_login } from '@context';
 import { useRoutes } from '@hooks';
-import Link from 'next/link';
 
 export type LoginProps = {
 	boxProps?: React.HTMLAttributes<HTMLDivElement>;

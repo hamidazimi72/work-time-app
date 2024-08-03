@@ -1,7 +1,8 @@
+import Link from 'next/link';
+
 import { Block, PrimaryButton, PrimaryInput, PureForm } from '@attom';
 import { page_register } from '@context';
 import { useRoutes } from '@hooks';
-import Link from 'next/link';
 
 export type RegisterProps = {
 	boxProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -27,7 +28,6 @@ export const Register: React.FC<RegisterProps> = ({
 	};
 
 	const sendNotif = () => {
-		console.log(window.Notification.permission);
 		if (!window?.Notification) {
 			// Check if the browser supports notifications
 			alert('This browser does not support desktop notification');
@@ -35,6 +35,7 @@ export const Register: React.FC<RegisterProps> = ({
 			// Check whether notification permissions have already been granted;
 			// if so, create a notification
 			const notification = new Notification('Hi there!');
+			alert('Hi there!');
 			// …
 		} else if (Notification.permission !== 'denied') {
 			// We need to ask the user for permission
@@ -42,6 +43,7 @@ export const Register: React.FC<RegisterProps> = ({
 				// If the user accepts, let's create a notification
 				if (permission === 'granted') {
 					const notification = new Notification('Hi there!');
+					alert('Hi there!');
 					// …
 				}
 			});
