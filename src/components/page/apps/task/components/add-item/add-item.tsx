@@ -44,7 +44,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 							label='عنوان'
 							value={title}
 							onChange={(e) => overWrite({ value: { title: e }, scope: 'addItem.form' })}
-							focus
+							// focus
 						/>
 						<PrimaryDatePicker
 							label='تاریخ'
