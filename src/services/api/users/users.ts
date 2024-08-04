@@ -1,36 +1,34 @@
 import { HTTPService } from '@services';
 
 // ______________________  	______________________//
-export const $users_username_login_POST = async (
+export const $users_login_POST = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		body: { password: string };
-		param: { username: string };
+		body: { password: string; username: string };
 	},
 ) =>
 	await HTTPService.handler(
 		async () =>
 			await HTTPService.call({
 				method: 'POST',
-				path: `api/v1/users/${data?.param?.username}/login`,
+				path: `api/v1/users/login`,
 				...data,
 			}),
 		handlerConfig,
 	);
 
 // ______________________  	______________________//
-export const $users_username_register_POST = async (
+export const $users_register_POST = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		body: { password: string; securityCode: number };
-		param: { username: string };
+		body: { username: string; password: string; nationalNumber?: string; mobile?: string; firstname?: string; lastname?: string };
 	},
 ) =>
 	await HTTPService.handler(
 		async () =>
 			await HTTPService.call({
 				method: 'POST',
-				path: `api/v1/users/${data?.param?.username}/register`,
+				path: `api/v1/users`,
 				...data,
 			}),
 		handlerConfig,

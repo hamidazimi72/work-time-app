@@ -9,7 +9,7 @@ export const useActions = () => {
 
 	const login = async (
 		parameters?: Action_callbacks & {
-			data: { id: string; username: string; lastName: string; firstName: string };
+			data: { [key: string]: any };
 			token: string;
 		},
 	) => {
@@ -23,7 +23,7 @@ export const useActions = () => {
 
 		if (data?.username) {
 			LocalStorageAPI.setItem('token', parameters?.token, 'json');
-			LocalStorageAPI.setItem('token-expired-time', Date.now() + 1000 * 60 * 60 * 24, 'json');
+			// LocalStorageAPI.setItem('token-expired-time', Date.now() + 1000 * 60 * 60 * 24, 'json');
 		}
 	};
 

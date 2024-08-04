@@ -17,7 +17,8 @@ export const useActions = () => {
 			parameters?.statusChangeCB ?? null,
 		];
 
-		const { username, password, securityCode } = state;
+		const { form } = state;
+		const { username, password, firstname, lastname, mobile, nationalNumber } = form;
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -37,9 +38,9 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$users_username_register_POST(
+		api.$users_register_POST(
 			{ onStatus, onOk, onFail },
-			{ body: { password, securityCode: +securityCode }, param: { username } },
+			{ body: { username, password, firstname, lastname, mobile, nationalNumber }, param: {} },
 		);
 	};
 
