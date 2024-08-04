@@ -1,6 +1,6 @@
 import { Block } from '@attom';
 import { template_dashboard } from '@context';
-import { Footer, Header } from './components';
+import { Footer, Header, SideNav } from './components';
 
 type RenderProps = {
 	children?: any;
@@ -13,7 +13,7 @@ export const Render: React.FC<RenderProps> = ({
 	//
 	boxProps,
 }) => {
-	const { state } = template_dashboard.useContext();
+	const { state, overWrite } = template_dashboard.useContext();
 	// const { collapseSubMenu } = state;
 
 	return (
@@ -21,6 +21,7 @@ export const Render: React.FC<RenderProps> = ({
 			<Header />
 			<div className='p-4 pt-20 min-h-screen'>{children}</div>
 			<Footer />
+			{state?.sideNavShow && <SideNav onClose={() => overWrite({ value: { sideNavShow: false } })} />}
 		</Block>
 	);
 };
