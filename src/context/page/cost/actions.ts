@@ -18,8 +18,8 @@ export const useActions = () => {
 		const { filter } = fetchItems;
 		const { dateFrom, dateSort, dateTo } = filter;
 
-		const dateFrom_formatted = new Date(dateFrom || '').setHours(0, 0, 0, 0);
-		const dateTo_formatted = new Date(dateTo || '').setHours(23, 59, 59, 0);
+		const dateFrom_formatted = new Date(dateFrom || '');
+		const dateTo_formatted = new Date(dateTo || '');
 
 		type Res = Service_response<{ info: API_costs_item }>;
 
@@ -63,6 +63,7 @@ export const useActions = () => {
 		const { addItem } = state;
 		const { form } = addItem;
 		const { category, date, description, price } = form;
+		const formatted_date = new Date(date || '');
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -79,7 +80,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$costs_POST({ onStatus, onOk, onFail }, { body: { category, date, description, price: +price } });
+		api.$costs_POST({ onStatus, onOk, onFail }, { body: { category, date: formatted_date, description, price: +price } });
 	};
 
 	const editItem = (parameters?: Action_callbacks & {}) => {
@@ -92,6 +93,7 @@ export const useActions = () => {
 		const { editItem } = state;
 		const { form } = editItem;
 		const { category, date, description, price, id } = form;
+		const formatted_date = new Date(date || '');
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -108,7 +110,10 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$costs_PUT({ onStatus, onOk, onFail }, { body: { id: +id, category, date, description, price: +price } });
+		api.$costs_PUT(
+			{ onStatus, onOk, onFail },
+			{ body: { category, date: formatted_date, description, price: +price }, param: { id: +id } },
+		);
 	};
 
 	const deleteItem = (parameters?: Action_callbacks & {}) => {

@@ -13,7 +13,7 @@ export const EditItem: React.FC<EditItemProps> = ({
 	const { state, overWrite, initState } = page_worktime.useContext();
 	const { editItem } = state;
 	const { form, selectedItem } = editItem;
-	const { arrivalTime, departureTime, isVacation } = form;
+	const { arrivalDate, departureDate, isVacation } = form;
 
 	const actions = page_worktime.useActions();
 
@@ -24,7 +24,7 @@ export const EditItem: React.FC<EditItemProps> = ({
 	};
 
 	const editTimeHandler = (closeHanlder: () => void) => {
-		if (isVacation && !arrivalTime) {
+		if (isVacation && !arrivalDate) {
 			showToast({ message: 'لطفا تاریخ را وارد کنید!', showIcon: true, type: 'warning' });
 			return;
 		}
@@ -43,8 +43,8 @@ export const EditItem: React.FC<EditItemProps> = ({
 		overWrite({
 			value: {
 				id: selectedItem?.id,
-				arrivalTime: selectedItem?.arrivalTime,
-				departureTime: selectedItem?.departureTime,
+				arrivalDate: selectedItem?.arrivalDate,
+				departureDate: selectedItem?.departureDate,
 				isVacation: selectedItem?.isVacation,
 			},
 			scope: 'editItem.form',
@@ -61,19 +61,19 @@ export const EditItem: React.FC<EditItemProps> = ({
 					<PureForm boxProps={{ className: 'flex flex-col gap-4' }}>
 						<PrimaryDatePicker
 							format='YYYY/MM/DD - HH:mm'
-							value={arrivalTime}
-							onChange={(e) => overWrite({ value: { arrivalTime: e }, scope: 'editItem.form' })}
+							value={arrivalDate}
+							onChange={(e) => overWrite({ value: { arrivalDate: e }, scope: 'editItem.form' })}
 							disabled={isVacation}
 							timePicker
 						/>
 						<PrimaryDatePicker
 							format='YYYY/MM/DD - HH:mm'
-							value={departureTime}
-							onChange={(e) => overWrite({ value: { departureTime: e }, scope: 'editItem.form' })}
+							value={departureDate}
+							onChange={(e) => overWrite({ value: { departureDate: e }, scope: 'editItem.form' })}
 							disabled={isVacation}
 							timePicker
 						/>
-						{arrivalTime && (
+						{arrivalDate && (
 							<PrimaryCheckbox
 								label='مرخصی'
 								value={isVacation}

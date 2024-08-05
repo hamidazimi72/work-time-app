@@ -4,7 +4,7 @@ import { HTTPService } from '@services';
 export const $costs_GET = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		query: { dateFrom: number | Date; dateTo: number | Date; dateSort: string };
+		query: { dateFrom: Date | undefined; dateTo: Date | undefined; dateSort: string };
 	},
 ) =>
 	await HTTPService.handler(
@@ -38,14 +38,15 @@ export const $costs_POST = async (
 export const $costs_PUT = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		body: { id: number; date: number | Date | undefined; price: number; category: string; description: string };
+		body: { date: number | Date | undefined; price: number; category: string; description?: string };
+		param: { id: number };
 	},
 ) =>
 	await HTTPService.handler(
 		async () =>
 			await HTTPService.call({
 				method: 'PUT',
-				path: `api/v1/costs`,
+				path: `api/v1/costs/${data?.param?.id}`,
 				...data,
 			}),
 		handlerConfig,

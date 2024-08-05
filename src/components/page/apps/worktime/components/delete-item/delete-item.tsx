@@ -41,9 +41,7 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({
 					<h3 className='mb-4'>حذف روز کاری</h3>
 					<h2 className='text-center'>
 						آیا از حذف روز کاری{' '}
-						<span className='text-primary-1'>
-							" {DateAPI?.gregorianToJalaali(new Date(selectedItem?.arrivalTime || ''))?.standardDate} "
-						</span>{' '}
+						<span className='text-primary-1'>" {DateAPI?.gregorianToJalaali(selectedItem?.arrivalDate)?.standardDate} "</span>{' '}
 						اطمینان دارید؟
 					</h2>
 					<PrimaryButton content='حذف' onClick={() => deleteTimeHandler(closeHanlder)} />

@@ -16,10 +16,10 @@ export const useActions = () => {
 
 		const { fetchItems } = state;
 		const { filter } = fetchItems;
-		const { arrivalTimeFrom, arrivalTimeTo, arrivalSort } = filter;
+		const { arrivalDateFrom, arrivalDateTo, arrivalSort } = filter;
 
-		const arrivalTimeFrom_formatted = new Date(arrivalTimeFrom || '').setHours(0, 0, 0, 0);
-		const arrivalTimeTo_formatted = new Date(arrivalTimeTo || '').setHours(23, 59, 59, 0);
+		const arrivalDateFrom_formatted = new Date(arrivalDateFrom || '');
+		const arrivalDateTo_formatted = new Date(arrivalDateTo || '');
 
 		type Res = Service_response<{ info: API_worktimes_item }>;
 
@@ -36,9 +36,9 @@ export const useActions = () => {
 
 			let totalTime = 0;
 			$fetchItems.forEach((item: API_worktimes_item) => {
-				if (!item?.departureTime) return;
+				if (!item?.departureDate) return;
 
-				const timeDiffrence = item?.departureTime - item?.arrivalTime;
+				const timeDiffrence = new Date(item?.departureDate).getTime() - new Date(item?.arrivalDate).getTime();
 				totalTime += timeDiffrence;
 			});
 
@@ -53,7 +53,7 @@ export const useActions = () => {
 
 		api.$worktimes_GET(
 			{ onStatus, onOk, onFail },
-			{ query: { arrivalTimeFrom: arrivalTimeFrom_formatted, arrivalTimeTo: arrivalTimeTo_formatted, arrivalSort } },
+			{ query: { arrivalDateFrom: arrivalDateFrom_formatted, arrivalDateTo: arrivalDateTo_formatted, arrivalSort } },
 		);
 	};
 
@@ -66,10 +66,10 @@ export const useActions = () => {
 
 		const { addItem } = state;
 		const { form } = addItem;
-		const { arrivalTime, departureTime, isVacation } = form;
+		const { arrivalDate, departureDate, isVacation } = form;
 
-		const arrivalTime_formatted = new Date(arrivalTime || '').setSeconds(0, 0);
-		const departureTime_formatted = new Date(departureTime || '').setSeconds(0, 0);
+		const arrivalDate_formatted = new Date(new Date(arrivalDate || '').setSeconds(0, 0));
+		const departureDate_formatted = new Date(new Date(departureDate || '').setSeconds(0, 0));
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -88,8 +88,7 @@ export const useActions = () => {
 
 		api.$worktimes_POST(
 			{ onStatus, onOk, onFail },
-			{ body: { arrivalTime: arrivalTime_formatted, departureTime: departureTime_formatted, isVacation } },
-			// { body: { arrivalTime: arrivalTime ? +arrivalTime : 0, departureTime: departureTime ? +departureTime : 0, isVacation } },
+			{ body: { arrivalDate: arrivalDate_formatted, departureDate: departureDate_formatted, isVacation } },
 		);
 	};
 
@@ -102,7 +101,10 @@ export const useActions = () => {
 
 		const { editItem } = state;
 		const { form } = editItem;
-		const { arrivalTime, departureTime, isVacation, id } = form;
+		const { arrivalDate, departureDate, isVacation, id } = form;
+
+		const arrivalDate_formatted = new Date(new Date(arrivalDate || '').setSeconds(0, 0));
+		const departureDate_formatted = new Date(new Date(departureDate || '').setSeconds(0, 0));
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -122,12 +124,8 @@ export const useActions = () => {
 		api.$worktimes_PUT(
 			{ onStatus, onOk, onFail },
 			{
-				body: {
-					id: +id,
-					arrivalTime: arrivalTime ? +arrivalTime : 0,
-					departureTime: departureTime ? +departureTime : 0,
-					isVacation,
-				},
+				body: { arrivalDate: arrivalDate_formatted, departureDate: departureDate_formatted, isVacation },
+				param: { id: +id },
 			},
 		);
 	};

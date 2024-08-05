@@ -14,7 +14,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 	const { state, overWrite } = page_worktime.useContext();
 	const { fetchItems } = state;
 	const { filter, totalTime } = fetchItems;
-	const { arrivalTimeFrom, arrivalTimeTo } = filter;
+	const { arrivalDateFrom, arrivalDateTo } = filter;
 
 	const totalHours = Math.floor(totalTime / 1000 / 60 / 60);
 	const totalMinutes = new Date(totalTime).getUTCMinutes();
@@ -45,13 +45,13 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 				<PureForm boxProps={{ className: 'grid grid-cols-2 gap-2' }}>
 					<PrimaryDatePicker
 						label='از تاریخ'
-						value={arrivalTimeFrom}
-						onChange={(e) => overWrite({ value: { arrivalTimeFrom: e }, scope: 'fetchItems.filter' })}
+						value={arrivalDateFrom}
+						onChange={(e) => overWrite({ value: { arrivalDateFrom: e }, scope: 'fetchItems.filter' })}
 					/>
 					<PrimaryDatePicker
 						label='تا تاریخ'
-						value={arrivalTimeTo}
-						onChange={(e) => overWrite({ value: { arrivalTimeTo: e }, scope: 'fetchItems.filter' })}
+						value={arrivalDateTo}
+						onChange={(e) => overWrite({ value: { arrivalDateTo: e }, scope: 'fetchItems.filter' })}
 					/>
 
 					<PrimaryButton boxProps={{ className: 'col-span-2' }} content='جستجو' onClick={fetchAllItems} />
@@ -60,7 +60,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 				<div className='flex flex-col gap-2'>
 					{fetchItems?.$fetchItems?.map((item, i) => {
 						const isVacation = item?.isVacation || false;
-						const isCompleted = (item?.arrivalTime && item?.departureTime) || false;
+						const isCompleted = item?.arrivalDate && item?.departureDate ? true : false;
 
 						const bgColor = (isVacation && `bg-indigo-50`) || (isCompleted && `bg-green-50`) || `bg-yellow-50`;
 
@@ -69,7 +69,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 						let totalMinutes_item: number = 0;
 
 						if (isCompleted) {
-							totalTime_item = item?.departureTime - item?.arrivalTime;
+							totalTime_item = new Date(item?.departureDate).getTime() - new Date(item?.arrivalDate).getTime();
 							totalHours_item = Math.floor(totalTime_item / 1000 / 60 / 60) || 0;
 							totalMinutes_item = new Date(totalTime_item).getUTCMinutes() || 0;
 						}
@@ -78,9 +78,9 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 							<div key={i} className={`flex flex-col gap-4 p-4 rounded-lg shadow-sm text-sm ${bgColor}`}>
 								<div className='flex justify-between items-center gap-2'>
 									<span>
-										{DateAPI.gregorianToJalaali(new Date(item?.arrivalTime))?.standardDate}
+										{DateAPI.gregorianToJalaali(new Date(item?.arrivalDate))?.standardDate}
 										{` `}
-										<small>({DateAPI.gregorianToJalaali(new Date(item?.arrivalTime))?.dayName})</small>
+										<small>({DateAPI.gregorianToJalaali(new Date(item?.arrivalDate))?.dayName})</small>
 									</span>
 									<div className='flex items-center gap-3'>
 										<SVGIcon
@@ -100,12 +100,12 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 								<div className='flex gap-2'>
 									<span className='flex-1'>
 										زمان ورود:{' '}
-										{!isVacation ? DateAPI.gregorianToJalaali(new Date(item?.arrivalTime))?.standardTime.slice(0, 5) : '-'}
+										{!isVacation ? DateAPI.gregorianToJalaali(new Date(item?.arrivalDate))?.standardTime.slice(0, 5) : '-'}
 									</span>
 									<span className='flex-1'>
 										زمان خروج:{' '}
-										{item?.departureTime && !isVacation
-											? DateAPI.gregorianToJalaali(new Date(item?.departureTime))?.standardTime.slice(0, 5)
+										{item?.departureDate && !isVacation
+											? DateAPI.gregorianToJalaali(new Date(item?.departureDate))?.standardTime.slice(0, 5)
 											: '-'}
 									</span>
 								</div>
@@ -123,7 +123,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 					مجموع: {` `}
 					{totalHours >= 10 ? totalHours : `0${totalHours}`}:{totalMinutes >= 10 ? totalMinutes : `0${totalMinutes}`}
 				</div>
-				<div className='mb-24'>روز کاری: {fetchItems?.$fetchItems.filter((item) => item?.departureTime)?.length}</div>
+				<div className='mb-24'>روز کاری: {fetchItems?.$fetchItems.filter((item) => item?.departureDate)?.length}</div>
 			</div>
 			<PrimaryButton
 				boxProps={{ className: 'fixed bottom-4 right-4' }}
