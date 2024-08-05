@@ -109,7 +109,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 											: '-'}
 									</span>
 								</div>
-								{isCompleted ? (
+								{isCompleted && !isVacation ? (
 									<div className='text-[12px] font-light'>
 										{totalHours_item > 0 ? `${totalHours_item} ساعت` : null}
 										{totalMinutes_item > 0 ? ` ${totalMinutes_item} دقیقه` : null}
