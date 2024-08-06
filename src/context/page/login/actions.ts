@@ -37,7 +37,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$users_username_login_POST({ onStatus, onOk, onFail }, { body: { password }, param: { username } });
+		api.$users_login_POST({ onStatus, onOk, onFail }, { body: { password, username } });
 	};
 
 	//--------------------* End Action  *--------------------//

@@ -8,10 +8,12 @@ import { createContext } from '../../create-context';
 
 let date = new DateObject({ calendar: persian, locale: persian_fa });
 
-let arrivalTimeFrom_timeStamp = Number(
-	DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfMonth().format()))?.timeStamp,
+let arrivalDateFrom_timeStamp = new Date(
+	DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfMonth().format()))?.timeStamp || '',
 );
-let arrivalTimeTo_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfMonth().format()))?.timeStamp);
+let arrivalDateTo_timeStamp = new Date(
+	DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfMonth().format()))?.timeStamp || '',
+);
 
 export type InitState = {
 	//____________________** fetch All items **____________________//
@@ -22,8 +24,8 @@ export type InitState = {
 		totalTime: number;
 
 		filter: {
-			arrivalTimeFrom: number | Date | undefined;
-			arrivalTimeTo: number | Date | undefined;
+			arrivalDateFrom: Date | undefined;
+			arrivalDateTo: Date | undefined;
 			arrivalSort: 'asc' | 'dec';
 		};
 	};
@@ -32,8 +34,8 @@ export type InitState = {
 		_addItem: Service_status;
 		show: boolean;
 		form: {
-			arrivalTime: number | Date | undefined;
-			departureTime: number | Date | undefined;
+			arrivalDate: Date | undefined;
+			departureDate: Date | undefined;
 			isVacation: boolean;
 		};
 	};
@@ -43,8 +45,8 @@ export type InitState = {
 		selectedItem: API_example_getAll_item | null;
 		form: {
 			id: string;
-			arrivalTime: number | Date | undefined;
-			departureTime: number | Date | undefined;
+			arrivalDate: Date | undefined;
+			departureDate: Date | undefined;
 			isVacation: boolean;
 		};
 	};
@@ -65,8 +67,8 @@ export const initState: InitState = {
 		totalTime: 0,
 
 		filter: {
-			arrivalTimeFrom: arrivalTimeFrom_timeStamp,
-			arrivalTimeTo: arrivalTimeTo_timeStamp,
+			arrivalDateFrom: arrivalDateFrom_timeStamp,
+			arrivalDateTo: arrivalDateTo_timeStamp,
 			arrivalSort: 'asc',
 		},
 	},
@@ -77,8 +79,8 @@ export const initState: InitState = {
 		show: false,
 
 		form: {
-			arrivalTime: undefined,
-			departureTime: undefined,
+			arrivalDate: undefined,
+			departureDate: undefined,
 			isVacation: false,
 		},
 	},
@@ -90,8 +92,8 @@ export const initState: InitState = {
 
 		form: {
 			id: '',
-			arrivalTime: undefined,
-			departureTime: undefined,
+			arrivalDate: undefined,
+			departureDate: undefined,
 			isVacation: false,
 		},
 	},

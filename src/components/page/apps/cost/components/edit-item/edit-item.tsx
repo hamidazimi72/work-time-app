@@ -64,7 +64,7 @@ export const EditItem: React.FC<EditItemProps> = ({
 							label='عنوان'
 							value={category}
 							onChange={(e) => overWrite({ value: { category: e }, scope: 'editItem.form' })}
-							focus
+							// focus
 						/>
 						<PrimaryInput
 							label='مبلغ'

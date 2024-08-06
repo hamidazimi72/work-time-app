@@ -13,7 +13,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 	const { state, overWrite, initState } = page_worktime.useContext();
 	const { addItem } = state;
 	const { form } = addItem;
-	const { arrivalTime, departureTime, isVacation } = form;
+	const { arrivalDate, departureDate, isVacation } = form;
 
 	const actions = page_worktime.useActions();
 
@@ -24,7 +24,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 	};
 
 	const addTimeHandler = (closeHanlder: () => void) => {
-		if (isVacation && !arrivalTime) {
+		if (isVacation && !arrivalDate) {
 			showToast({ message: 'لطفا تاریخ را وارد کنید!', showIcon: true, type: 'warning' });
 			return;
 		}
@@ -48,26 +48,26 @@ export const AddItem: React.FC<AddItemProps> = ({
 						<PrimaryDatePicker
 							label='زمان شروع'
 							format='YYYY/MM/DD - HH:mm'
-							value={arrivalTime}
-							onChange={(e) => overWrite({ value: { arrivalTime: e }, scope: 'addItem.form' })}
+							value={arrivalDate}
+							onChange={(e) => overWrite({ value: { arrivalDate: e }, scope: 'addItem.form' })}
 							disabled={isVacation}
 							timePicker
 						/>
 						<PrimaryDatePicker
 							label='زمان پایان'
 							format='YYYY/MM/DD - HH:mm'
-							value={departureTime}
-							onChange={(e) => overWrite({ value: { departureTime: e }, scope: 'addItem.form' })}
+							value={departureDate}
+							onChange={(e) => overWrite({ value: { departureDate: e }, scope: 'addItem.form' })}
 							disabled={isVacation}
 							timePicker
 						/>
-						{arrivalTime && (
+						{arrivalDate ? (
 							<PrimaryCheckbox
 								label='مرخصی'
 								value={isVacation}
 								onChange={(value) => overWrite({ value: { isVacation: value }, scope: 'addItem.form' })}
 							/>
-						)}
+						) : null}
 
 						<PrimaryButton content='ثبت' onClick={() => addTimeHandler(closeHanlder)} />
 					</PureForm>

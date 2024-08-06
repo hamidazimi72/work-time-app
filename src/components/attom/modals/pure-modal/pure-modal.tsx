@@ -37,7 +37,7 @@ export const PureModal: React.FC<PureModalProps> = ({
 
 	boxProps,
 	boxSize = sideModal
-		? 'mr-auto max-h-[100vh] h-[100vh] w-[80vw] lg:w-[60vw] xl:w-[40vw]'
+		? 'mr-auto max-h-screen h-screen w-[80vw] lg:w-[60vw] xl:w-[40vw]'
 		: 'max-h-[90vh] max-w-[95vw] min-w-[90vw] sm:min-w-[75vw] md:min-w-[60vw] lg:min-w-[40vw]',
 	boxBgColor = 'bg-background-primary',
 

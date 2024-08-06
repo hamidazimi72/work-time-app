@@ -49,7 +49,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 							label='عنوان'
 							value={category}
 							onChange={(e) => overWrite({ value: { category: e }, scope: 'addItem.form' })}
-							focus
+							// focus
 						/>
 						<PrimaryInput
 							label='مبلغ'
