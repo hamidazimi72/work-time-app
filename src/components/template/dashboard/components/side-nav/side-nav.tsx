@@ -1,6 +1,7 @@
 import { SVGIcon } from '@attom';
 import { template_dashboard } from '@context';
-import { useDidMount } from '@hooks';
+import { useDidMount, useRoutes } from '@hooks';
+import { LocalStorageAPI } from '@utils';
 import Link from 'next/link';
 import { useRef } from 'react';
 
@@ -49,6 +50,13 @@ export const SideNav: React.FC<SideNavProps> = ({
 		}, 500);
 	};
 
+	const { push } = useRoutes();
+
+	const exitHandler = () => {
+		LocalStorageAPI?.logout();
+		push('/login');
+	};
+
 	useDidMount(() => {
 		const body: any = document.querySelector('body');
 		body.classList.add('overflow-hidden');
@@ -84,7 +92,7 @@ export const SideNav: React.FC<SideNavProps> = ({
 						<SVGIcon icon='lock_regular_rounded' width='w-5' />
 						<span>تغییر رمز عبور</span>
 					</Link>
-					<div className='text-danger flex gap-2 items-center text-sm'>
+					<div className='text-danger flex gap-2 items-center text-sm' onClick={exitHandler}>
 						<SVGIcon icon='exit_regular_rounded' width='w-5' />
 						<span>خروج</span>
 					</div>

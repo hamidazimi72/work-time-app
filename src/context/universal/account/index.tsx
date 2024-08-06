@@ -5,15 +5,15 @@ export type InitState = {
 
 	id: string;
 	username: string;
-	lastName: string;
-	firstName: string;
+	lastname: string;
+	firstname: string;
 };
 
 export const initState: InitState = {
 	id: '',
 	username: '',
-	lastName: '',
-	firstName: '',
+	lastname: '',
+	firstname: '',
 };
 
 export const { useContext, Provider } = createContext<InitState>(initState);
