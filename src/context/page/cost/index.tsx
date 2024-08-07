@@ -8,8 +8,8 @@ import { createContext } from '../../create-context';
 
 let date = new DateObject({ calendar: persian, locale: persian_fa });
 
-let dateFrom_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfMonth().format()))?.timeStamp);
-let dateTo_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfMonth().format()))?.timeStamp);
+let dateFrom_iso = DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfMonth().format()))?.iso;
+let dateTo_iso = DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfMonth().format()))?.iso;
 
 export type InitState = {
 	//____________________** fetch All items **____________________//
@@ -20,8 +20,8 @@ export type InitState = {
 		totalCosts: number;
 
 		filter: {
-			dateFrom: number | Date | undefined;
-			dateTo: number | Date | undefined;
+			dateFrom: Date | string | undefined;
+			dateTo: Date | string | undefined;
 			dateSort: 'asc' | 'dec';
 		};
 	};
@@ -31,7 +31,7 @@ export type InitState = {
 		show: boolean;
 		test: string;
 		form: {
-			date: number | Date | undefined;
+			date: Date | string | undefined;
 			price: string;
 			category: string;
 			description: string;
@@ -43,7 +43,7 @@ export type InitState = {
 		selectedItem: API_example_getAll_item | null;
 		form: {
 			id: string;
-			date: number | Date | undefined;
+			date: Date | string | undefined;
 			price: string;
 			category: string;
 			description: string;
@@ -66,8 +66,8 @@ export const initState: InitState = {
 		totalCosts: 0,
 
 		filter: {
-			dateFrom: dateFrom_timeStamp,
-			dateTo: dateTo_timeStamp,
+			dateFrom: dateFrom_iso,
+			dateTo: dateTo_iso,
 			dateSort: 'asc',
 		},
 	},
@@ -80,7 +80,7 @@ export const initState: InitState = {
 
 		form: {
 			category: '',
-			date: undefined,
+			date: '',
 			description: '',
 			price: '',
 		},
@@ -94,7 +94,7 @@ export const initState: InitState = {
 		form: {
 			id: '',
 			category: '',
-			date: undefined,
+			date: '',
 			description: '',
 			price: '',
 		},
