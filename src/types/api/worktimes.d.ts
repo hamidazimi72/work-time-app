@@ -3,7 +3,7 @@ declare type API_worktimes_item = {
 
 	id: number;
 	user?: string;
-	arrivalTime: number;
-	departureTime: number;
+	arrivalTime: Date | string | undefined;
+	departureTime: Date | string | undefined;
 	isVacation: boolean;
 };

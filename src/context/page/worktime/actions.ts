@@ -18,8 +18,8 @@ export const useActions = () => {
 		const { filter } = fetchItems;
 		const { arrivalDateFrom, arrivalDateTo, arrivalSort } = filter;
 
-		const arrivalDateFrom_formatted = new Date(arrivalDateFrom || '');
-		const arrivalDateTo_formatted = new Date(arrivalDateTo || '');
+		// const arrivalDateFrom_formatted = new Date(arrivalDateFrom || '');
+		// const arrivalDateTo_formatted = new Date(arrivalDateTo || '');
 
 		type Res = Service_response<{ info: API_worktimes_item }>;
 
@@ -51,10 +51,7 @@ export const useActions = () => {
 			overWrite({ scope: 'fetchItems', value: { $fetchItems: [], totalTime: 0 } });
 		};
 
-		api.$worktimes_GET(
-			{ onStatus, onOk, onFail },
-			{ query: { arrivalDateFrom: arrivalDateFrom_formatted, arrivalDateTo: arrivalDateTo_formatted, arrivalSort } },
-		);
+		api.$worktimes_GET({ onStatus, onOk, onFail }, { query: { arrivalDateFrom, arrivalDateTo, arrivalSort } });
 	};
 
 	const addItem = (parameters?: Action_callbacks & {}) => {
@@ -68,8 +65,8 @@ export const useActions = () => {
 		const { form } = addItem;
 		const { arrivalDate, departureDate, isVacation } = form;
 
-		const arrivalDate_formatted = new Date(new Date(arrivalDate || '').setSeconds(0, 0));
-		const departureDate_formatted = new Date(new Date(departureDate || '').setSeconds(0, 0));
+		// const arrivalDate_formatted = new Date(arrivalDate || '').setSeconds(0, 0).toISOString();
+		// const departureDate_formatted = new Date(departureDate || '').setSeconds(0, 0).toISOString();
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -86,10 +83,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$worktimes_POST(
-			{ onStatus, onOk, onFail },
-			{ body: { arrivalDate: arrivalDate_formatted, departureDate: departureDate_formatted, isVacation } },
-		);
+		api.$worktimes_POST({ onStatus, onOk, onFail }, { body: { arrivalDate, departureDate, isVacation } });
 	};
 
 	const editItem = (parameters?: Action_callbacks & {}) => {
@@ -103,8 +97,8 @@ export const useActions = () => {
 		const { form } = editItem;
 		const { arrivalDate, departureDate, isVacation, id } = form;
 
-		const arrivalDate_formatted = new Date(new Date(arrivalDate || '').setSeconds(0, 0));
-		const departureDate_formatted = new Date(new Date(departureDate || '').setSeconds(0, 0));
+		// const arrivalDate_formatted = new Date(new Date(arrivalDate || '').setSeconds(0, 0));
+		// const departureDate_formatted = new Date(new Date(departureDate || '').setSeconds(0, 0));
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -121,13 +115,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$worktimes_PUT(
-			{ onStatus, onOk, onFail },
-			{
-				body: { arrivalDate: arrivalDate_formatted, departureDate: departureDate_formatted, isVacation },
-				param: { id: +id },
-			},
-		);
+		api.$worktimes_PUT({ onStatus, onOk, onFail }, { body: { arrivalDate, departureDate, isVacation }, param: { id: +id } });
 	};
 
 	const deleteItem = (parameters?: Action_callbacks & {}) => {

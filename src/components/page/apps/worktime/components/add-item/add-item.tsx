@@ -49,7 +49,9 @@ export const AddItem: React.FC<AddItemProps> = ({
 							label='زمان شروع'
 							format='YYYY/MM/DD - HH:mm'
 							value={arrivalDate}
-							onChange={(e) => overWrite({ value: { arrivalDate: e }, scope: 'addItem.form' })}
+							onChange={(e) =>
+								overWrite({ value: { arrivalDate: new Date(new Date(e).setSeconds(0, 0)).toISOString() }, scope: 'addItem.form' })
+							}
 							disabled={isVacation}
 							timePicker
 						/>
@@ -57,7 +59,12 @@ export const AddItem: React.FC<AddItemProps> = ({
 							label='زمان پایان'
 							format='YYYY/MM/DD - HH:mm'
 							value={departureDate}
-							onChange={(e) => overWrite({ value: { departureDate: e }, scope: 'addItem.form' })}
+							onChange={(e) =>
+								overWrite({
+									value: { departureDate: new Date(new Date(e).setSeconds(0, 0)).toISOString() },
+									scope: 'addItem.form',
+								})
+							}
 							disabled={isVacation}
 							timePicker
 						/>

@@ -5,8 +5,8 @@ export const $worktimes_GET = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
 		query: {
-			arrivalDateFrom?: Date | undefined;
-			arrivalDateTo?: Date | undefined;
+			arrivalDateFrom?: Date | string | undefined;
+			arrivalDateTo?: Date | string | undefined;
 			arrivalSort?: 'asc' | 'dec';
 		};
 	},
@@ -25,7 +25,7 @@ export const $worktimes_GET = async (
 export const $worktimes_POST = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		body: { arrivalDate: Date | undefined; departureDate: Date | undefined; isVacation: boolean };
+		body: { arrivalDate: Date | string | undefined; departureDate: Date | string | undefined; isVacation: boolean };
 	},
 ) =>
 	await HTTPService.handler(
@@ -42,7 +42,7 @@ export const $worktimes_POST = async (
 export const $worktimes_PUT = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		body: { arrivalDate: Date | undefined; departureDate: Date | undefined; isVacation: boolean };
+		body: { arrivalDate: Date | string | undefined; departureDate: Date | string | undefined; isVacation: boolean };
 		param: { id: number };
 	},
 ) =>

@@ -23,6 +23,7 @@ export type PrimaryDatePickerProps = {
 	mobileMode?: boolean;
 	//
 	timePicker?: boolean;
+	hideSeconds?: boolean;
 	toolbar?: boolean;
 };
 
@@ -40,6 +41,7 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 	mobileMode = true,
 
 	timePicker = false,
+	hideSeconds = true,
 	toolbar = false,
 }) => {
 	//
@@ -60,7 +62,7 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 	};
 
 	useDidMount(() => {
-		if (timePicker) setPlugins([...plugins, <TimePicker position='bottom' />]);
+		if (timePicker) setPlugins([...plugins, <TimePicker position='bottom' hideSeconds={hideSeconds} />]);
 		if (toolbar)
 			setPlugins([
 				...plugins,
