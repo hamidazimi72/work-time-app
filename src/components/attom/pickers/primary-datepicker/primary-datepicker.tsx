@@ -15,7 +15,7 @@ export type PrimaryDatePickerProps = {
 	labelProps?: React.HTMLAttributes<HTMLDivElement>;
 	//
 	format?: string;
-	value?: number | Date;
+	value?: string | Date;
 	label?: string;
 	onChange?: null | ((value: string | number, event: any) => any);
 	focus?: boolean;
@@ -54,7 +54,9 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 	}, []);
 
 	const onChangeHandler = (e: DateObject) => {
-		if (onChange) onChange(e?.toUnix() * 1000 || '', e);
+		// console.log(new Date(e?.toUnix() * 1000).toISOString());
+		// if (onChange) onChange(e?.toUnix() * 1000 || '', e);
+		if (onChange) onChange(new Date(e?.toUnix() * 1000).toISOString() || '', e);
 	};
 
 	useDidMount(() => {

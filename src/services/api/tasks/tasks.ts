@@ -4,7 +4,7 @@ import { HTTPService } from '@services';
 export const $tasks_GET = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		query: { isComplete?: boolean; dateFrom: Date | undefined; dateTo: Date | undefined };
+		query: { isComplete?: boolean; dateFrom: Date | string | undefined; dateTo: Date | string | undefined };
 	},
 ) =>
 	await HTTPService.handler(
@@ -21,7 +21,7 @@ export const $tasks_GET = async (
 export const $tasks_POST = async (
 	handlerConfig: Service_configHandler,
 	data: Service_data & {
-		body: { isComplete: boolean; title: string; date: Date | undefined };
+		body: { isComplete: boolean; title: string; date: Date | string | undefined };
 	},
 ) =>
 	await HTTPService.handler(
