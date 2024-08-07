@@ -64,9 +64,9 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 										{item?.category}
 										{` `}
 										<small>
-											({DateAPI.gregorianToJalaali(new Date(item?.date))?.dayName}
+											({DateAPI.gregorianToJalaali(new Date(item?.date || ''))?.dayName}
 											{` - `}
-											{DateAPI.gregorianToJalaali(new Date(item?.date))?.standardDate})
+											{DateAPI.gregorianToJalaali(new Date(item?.date || ''))?.standardDate})
 										</small>
 									</span>
 									<div className='flex items-center gap-3'>
