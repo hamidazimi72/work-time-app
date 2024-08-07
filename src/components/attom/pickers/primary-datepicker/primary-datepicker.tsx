@@ -15,7 +15,7 @@ export type PrimaryDatePickerProps = {
 	labelProps?: React.HTMLAttributes<HTMLDivElement>;
 	//
 	format?: string;
-	value?: number | Date;
+	value?: string | Date;
 	label?: string;
 	onChange?: null | ((value: string | number, event: any) => any);
 	focus?: boolean;
@@ -23,6 +23,7 @@ export type PrimaryDatePickerProps = {
 	mobileMode?: boolean;
 	//
 	timePicker?: boolean;
+	hideSeconds?: boolean;
 	toolbar?: boolean;
 };
 
@@ -40,6 +41,7 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 	mobileMode = true,
 
 	timePicker = false,
+	hideSeconds = true,
 	toolbar = false,
 }) => {
 	//
@@ -54,11 +56,13 @@ export const PrimaryDatePicker: React.FC<PrimaryDatePickerProps> = ({
 	}, []);
 
 	const onChangeHandler = (e: DateObject) => {
-		if (onChange) onChange(e?.toUnix() * 1000 || '', e);
+		// console.log(new Date(e?.toUnix() * 1000).toISOString());
+		// if (onChange) onChange(e?.toUnix() * 1000 || '', e);
+		if (onChange) onChange(new Date(e?.toUnix() * 1000).toISOString() || '', e);
 	};
 
 	useDidMount(() => {
-		if (timePicker) setPlugins([...plugins, <TimePicker position='bottom' />]);
+		if (timePicker) setPlugins([...plugins, <TimePicker position='bottom' hideSeconds={hideSeconds} />]);
 		if (toolbar)
 			setPlugins([
 				...plugins,

@@ -13,7 +13,7 @@ export const FetchItems: React.FC<FetchItemsProps> = ({
 }) => {
 	const { state, overWrite } = page_task.useContext();
 	const { fetchItems } = state;
-	const { filter, $fetchItems, formattedItems } = fetchItems;
+	const { filter, formattedItems } = fetchItems;
 	const { isComplete, fromDate, toDate } = filter;
 
 	const actions = page_task.useActions();

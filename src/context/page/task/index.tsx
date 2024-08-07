@@ -7,8 +7,8 @@ import { Convert, DateAPI } from '@utils';
 
 let date = new DateObject({ calendar: persian, locale: persian_fa });
 
-let fromDate_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfWeek().format()))?.timeStamp);
-let toDate_timeStamp = Number(DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfWeek().format()))?.timeStamp);
+let fromDate_iso = DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toFirstOfWeek().format()))?.iso;
+let toDate_iso = DateAPI.jalaaliToGregorian(Convert.faDigitToEn(date?.toLastOfWeek().format()))?.iso;
 
 export type InitState = {
 	//____________________** fetch All items **____________________//
@@ -18,8 +18,8 @@ export type InitState = {
 		formattedItems: { [key: string]: API_task_item[] };
 		filter: {
 			isComplete: { name: string; value: string };
-			fromDate: number | undefined;
-			toDate: number | undefined;
+			fromDate: Date | string | undefined;
+			toDate: Date | string | undefined;
 		};
 	};
 	//____________________** add one item **____________________//
@@ -29,7 +29,7 @@ export type InitState = {
 		form: {
 			isComplete: boolean;
 			title: string;
-			date: number | undefined;
+			date: Date | string | undefined;
 		};
 	};
 	//____________________** edit one item **____________________//
@@ -39,7 +39,7 @@ export type InitState = {
 		form: {
 			isComplete: boolean;
 			title: string;
-			date: number | undefined;
+			date: Date | string | undefined;
 		};
 	};
 	//____________________** delete one item **____________________//
@@ -59,8 +59,8 @@ export const initState: InitState = {
 
 		filter: {
 			isComplete: { name: 'همه موارد', value: 'undefined' },
-			fromDate: fromDate_timeStamp,
-			toDate: toDate_timeStamp,
+			fromDate: fromDate_iso,
+			toDate: toDate_iso,
 		},
 	},
 	//____________________** add one item **____________________//
@@ -72,7 +72,7 @@ export const initState: InitState = {
 		form: {
 			isComplete: false,
 			title: '',
-			date: undefined,
+			date: '',
 		},
 	},
 	//____________________** edit one item **____________________//
@@ -84,7 +84,7 @@ export const initState: InitState = {
 		form: {
 			isComplete: false,
 			title: '',
-			date: undefined,
+			date: '',
 		},
 	},
 	//____________________** delete one item **____________________//

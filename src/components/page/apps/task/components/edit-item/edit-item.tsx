@@ -29,7 +29,7 @@ export const EditItem: React.FC<EditItemProps> = ({
 				closeHanlder();
 				showToast({ message: 'وظیفه با موفقیت ویرایش گردید!', showIcon: true, type: 'success' });
 			},
-			item: { id: item?.id || 0, title: title, date: date || 0, isComplete: item?.isComplete || false, user: item?.user || '' },
+			item: { id: item?.id || 0, title: title, date: date || '', isComplete: item?.isComplete || false, user: item?.user || '' },
 		});
 	};
 

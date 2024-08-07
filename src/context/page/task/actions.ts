@@ -22,8 +22,8 @@ export const useActions = () => {
 
 		// const fromDate_formatted = new Date(fromDate || '').setHours(0, 0, 0, 0);
 		// const toDate_formatted = new Date(toDate || '').setHours(23, 59, 59, 0);
-		const fromDate_formatted = new Date(fromDate || '');
-		const toDate_formatted = new Date(toDate || '');
+		// const fromDate_formatted = new Date(fromDate || '');
+		// const toDate_formatted = new Date(toDate || '');
 
 		type Res = Service_response<{ info: API_task_item[] }>;
 
@@ -37,7 +37,7 @@ export const useActions = () => {
 
 			const $fetchItems = res?.body?.info || [];
 			const formattedItems = $fetchItems?.reduce((result, current) => {
-				let date: string = DateAPI.gregorianToJalaali(new Date(current?.date))?.standardDate || '';
+				let date: string = DateAPI.gregorianToJalaali(new Date(current?.date || ''))?.standardDate || '';
 				if (!result[date]) result[date] = [];
 
 				result[date].push({ ...current });
@@ -53,10 +53,7 @@ export const useActions = () => {
 			overWrite({ scope: 'fetchItems', value: { $fetchItems: [] } });
 		};
 
-		api.$tasks_GET(
-			{ onOk, onFail, onStatus },
-			{ query: { isComplete: isCompleted, dateFrom: fromDate_formatted, dateTo: toDate_formatted } },
-		);
+		api.$tasks_GET({ onOk, onFail, onStatus }, { query: { isComplete: isCompleted, dateFrom: fromDate, dateTo: toDate } });
 	};
 
 	const addItem = (parameters?: Action_callbacks & {}) => {
@@ -69,7 +66,7 @@ export const useActions = () => {
 		const { addItem } = state;
 		const { form } = addItem;
 		const { isComplete, title, date } = form;
-		const formattedDate = new Date(date || '');
+		// const formattedDate = new Date(date || '');
 
 		type Res = Service_response<{ info: API_task_item }>;
 
@@ -88,7 +85,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB();
 		};
 
-		api.$tasks_POST({ onOk, onFail, onStatus }, { body: { isComplete, title, date: formattedDate } });
+		api.$tasks_POST({ onOk, onFail, onStatus }, { body: { isComplete, title, date } });
 	};
 
 	const editItem = (parameters?: Action_callbacks & { item: API_task_item | null }) => {

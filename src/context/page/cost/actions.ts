@@ -18,8 +18,8 @@ export const useActions = () => {
 		const { filter } = fetchItems;
 		const { dateFrom, dateSort, dateTo } = filter;
 
-		const dateFrom_formatted = new Date(dateFrom || '');
-		const dateTo_formatted = new Date(dateTo || '');
+		// const dateFrom_formatted = new Date(dateFrom || '');
+		// const dateTo_formatted = new Date(dateTo || '');
 
 		type Res = Service_response<{ info: API_costs_item }>;
 
@@ -50,7 +50,7 @@ export const useActions = () => {
 			overWrite({ scope: 'fetchItems', value: { $fetchItems: [], totalCosts: 0 } });
 		};
 
-		api.$costs_GET({ onStatus, onOk, onFail }, { query: { dateFrom: dateFrom_formatted, dateTo: dateTo_formatted, dateSort } });
+		api.$costs_GET({ onStatus, onOk, onFail }, { query: { dateFrom, dateTo, dateSort } });
 	};
 
 	const addItem = (parameters?: Action_callbacks & {}) => {
@@ -63,7 +63,7 @@ export const useActions = () => {
 		const { addItem } = state;
 		const { form } = addItem;
 		const { category, date, description, price } = form;
-		const formatted_date = new Date(date || '');
+		// const formatted_date = new Date(date || '');
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -80,7 +80,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$costs_POST({ onStatus, onOk, onFail }, { body: { category, date: formatted_date, description, price: +price } });
+		api.$costs_POST({ onStatus, onOk, onFail }, { body: { category, date, description, price: +price } });
 	};
 
 	const editItem = (parameters?: Action_callbacks & {}) => {
@@ -93,7 +93,7 @@ export const useActions = () => {
 		const { editItem } = state;
 		const { form } = editItem;
 		const { category, date, description, price, id } = form;
-		const formatted_date = new Date(date || '');
+		// const formatted_date = new Date(date || '');
 
 		const onStatus = (status: Service_status) => {
 			if (typeof onStatusCB === 'function') onStatusCB(status);
@@ -110,10 +110,7 @@ export const useActions = () => {
 			if (typeof onFailCB === 'function') onFailCB(res);
 		};
 
-		api.$costs_PUT(
-			{ onStatus, onOk, onFail },
-			{ body: { category, date: formatted_date, description, price: +price }, param: { id: +id } },
-		);
+		api.$costs_PUT({ onStatus, onOk, onFail }, { body: { category, date, description, price: +price }, param: { id: +id } });
 	};
 
 	const deleteItem = (parameters?: Action_callbacks & {}) => {

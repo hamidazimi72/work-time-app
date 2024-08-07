@@ -114,21 +114,30 @@ export class DateAPI {
 		const result: any = new Date(this.iranLocalTimeFromDate(decreasedOffsetDate));
 
 		if (!result || !Date.parse(result)) return null;
+		console.log(result);
 
-		const year = String(result.getFullYear());
-		const month = String(result.getMonth() > 9 ? result.getMonth() : '0' + result.getMonth());
-		const day = String(result.getDate() > 9 ? result.getDate() : '0' + result.getDate());
-		const hours = String(result.getHours() > 9 ? result.getHours() : '0' + result.getHours());
-		const minutes = String(result.getMinutes() > 9 ? result.getMinutes() : '0' + result.getMinutes());
-		const seconds = String(result.getSeconds() > 9 ? result.getSeconds() : '0' + result.getSeconds());
+		const year = String(decreasedOffsetDate.getFullYear());
+		const month = String(
+			decreasedOffsetDate.getMonth() + 1 > 9 ? decreasedOffsetDate.getMonth() + 1 : `0${decreasedOffsetDate.getMonth() + 1}`,
+		);
+		const day = String(decreasedOffsetDate.getDate() > 9 ? decreasedOffsetDate.getDate() : '0' + decreasedOffsetDate.getDate());
+		const hours = String(
+			decreasedOffsetDate.getHours() > 9 ? decreasedOffsetDate.getHours() : '0' + decreasedOffsetDate.getHours(),
+		);
+		const minutes = String(
+			decreasedOffsetDate.getMinutes() > 9 ? decreasedOffsetDate.getMinutes() : '0' + decreasedOffsetDate.getMinutes(),
+		);
+		const seconds = String(
+			decreasedOffsetDate.getSeconds() > 9 ? decreasedOffsetDate.getSeconds() : '0' + decreasedOffsetDate.getSeconds(),
+		);
 		const standardFullDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 		const standardDate = `${year}-${month}-${day}`;
 		const standardTime = `${hours}:${minutes}:${seconds}`;
-		const monthName = prototypes.geoMonthProtoType[result.getMonth() + 1];
-		const dayName = prototypes.geoMonthProtoType[result.getDay() + 1];
+		const monthName = prototypes.geoMonthProtoType[decreasedOffsetDate.getMonth() + 1];
+		const dayName = prototypes.geoWeekProtoType[decreasedOffsetDate.getDay() + 1];
 		const timeStamp = Date.parse(decreasedOffsetDate);
-		const utc = result.toUTCString();
-		const iso = result.toISOString();
+		const utc = decreasedOffsetDate.toUTCString();
+		const iso = decreasedOffsetDate.toISOString();
 
 		// 		? String(decreasedOffsetDate)
 		// 		: String(new Date(this.iranLocalTimeFromDate(decreasedOffsetDate))).replace(/GMT[+]\d{4}.{0,}/, 'GMT+0000');
